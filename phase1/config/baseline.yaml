@@ -1,0 +1,67 @@
+experiment:
+  name: phase1_baseline_uniform_rewards_llama
+  phase: 1
+  seed: 42
+  num_repeats_per_scenario: 3
+
+data:
+  scenario_path: data/raw/deliberation_scenarios_v0_3.json
+  use_private_view: agents_structured
+  scenario_ids: null
+  max_scenarios: null
+
+model:
+  model_type: llama
+  model_name: meta-llama/Llama-3.2-3B-Instruct
+  temperature: 0.2
+  max_retries: 3
+  enforce_json_output: true
+
+agents:
+  num_agents: null
+  allow_empty_message: true
+  max_message_words: 80
+  reveal_feature_names_only: true
+
+deliberation:
+  num_rounds: 3
+  speaking_order: random
+  final_decision_rule: majority_vote
+  summarizer_agent_id: null
+  include_history_each_round: true
+
+incentives:
+  reward_structure: uniform
+  shared_reward_if_correct: 1.0
+  shared_reward_if_incorrect: 0.0
+  disclosure_cost_enabled: true
+  token_cost_enabled: false
+
+costs:
+  use_feature_disclosure_cost: true
+  use_token_speaking_cost: false
+
+prompts:
+  system_prompt_template: baseline_agent_system
+  user_prompt_template: baseline_agent_user
+  include_costs_in_prompt: true
+  include_shared_reward_in_prompt: true
+  include_feature_tags_in_prompt: false
+
+logging:
+  save_trajectories: true
+  save_agent_actions: true
+  save_final_votes: true
+  save_prompt_text: false
+  output_dir: data/runs/phase1_baseline_uniform_rewards_llama
+
+analysis:
+  compute_accuracy: true
+  compute_willingness_to_contribute: true
+  compute_disclosure_calibration: true
+  compute_decisive_feature_surfacing_rate: true
+  compute_misleading_feature_influence: true
+  compute_cost_by_agent: true
+  export_run_level_csv: true
+  export_summary_json: true
+  output_dir: data/processed/phase1_baseline_uniform_rewards_llama
