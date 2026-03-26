@@ -1,0 +1,2142 @@
+{
+  "scenarios": [
+    {
+      "id": "S01_diabetes_escalate",
+      "domain": "healthcare",
+      "question": "Escalate for near-term diabetes intervention/testing?",
+      "label": "YES",
+      "full_view": {
+        "Age": {
+          "value": 44,
+          "cost": 1,
+          "signal_strength": "weak"
+        },
+        "Sex": {
+          "value": "Male",
+          "cost": 1,
+          "signal_strength": "weak"
+        },
+        "BMI": {
+          "value": 29.7,
+          "cost": 2,
+          "signal_strength": "weak"
+        },
+        "Waist_cm": {
+          "value": 104,
+          "cost": 2,
+          "signal_strength": "weak"
+        },
+        "BP": {
+          "value": "138/88",
+          "cost": 2,
+          "signal_strength": "weak"
+        },
+        "FamilyHistory_T2D": {
+          "value": "No known",
+          "cost": 2,
+          "signal_strength": "weak"
+        },
+        "Sleep": {
+          "value": "5\u20136 hrs/night",
+          "cost": 1,
+          "signal_strength": "weak/noisy"
+        },
+        "PhysicalActivity": {
+          "value": "Occasional weekends",
+          "cost": 2,
+          "signal_strength": "weak/noisy"
+        },
+        "SugaryBeverages": {
+          "value": "3\u20134\u00d7/week",
+          "cost": 2,
+          "signal_strength": "weak/noisy"
+        },
+        "FastingGlucose_mg_dL": {
+          "value": 113,
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "Triglycerides_mg_dL": {
+          "value": 228,
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "HDL_mg_dL": {
+          "value": 34,
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "ALT_U_L": {
+          "value": 55,
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "HbA1c_pct": {
+          "value": 6.7,
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "RecentSteroids": {
+          "value": "No",
+          "cost": 2,
+          "signal_strength": "weak"
+        },
+        "Symptoms": {
+          "value": "Fatigue + occasional thirst",
+          "cost": 2,
+          "signal_strength": "weak/noisy"
+        },
+        "NewExerciseRoutine": {
+          "value": "Started brisk walks 4\u00d7/week in last 3 weeks",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        },
+        "WeightChange": {
+          "value": "Down ~3 lbs in last month",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "The patient is a 44-year-old male with mildly elevated blood pressure around 138/88.",
+        "A2": "He has a BMI of about 29.7 with a waist circumference near 104 cm, suggesting central adiposity.",
+        "A3": "Lifestyle is somewhat noisy: he sleeps only 5\u20136 hours most nights and is active mainly on weekends. He drinks sugary beverages a few times per week.",
+        "A4": "He reports no known family history of type 2 diabetes.",
+        "A5": "His fasting glucose is borderline high at about 113 mg/dL, suggestive of prediabetes but not definitive.",
+        "A6": "His lipid panel shows triglycerides around 228 and HDL around 34, a pattern consistent with metabolic risk.",
+        "A7": "A recent HbA1c test is 6.7%, indicating sustained elevated glucose over the last few months.",
+        "A8": "Symptoms are mild and nonspecific: fatigue with occasional thirst, without more dramatic warning signs.",
+        "A9": "There\u2019s no recent steroid use that would obviously explain higher glucose readings.",
+        "A10": "A potentially reassuring detail: he started brisk walks about 4 times a week in the last three weeks and has lost ~3 lbs recently."
+      },
+      "notes": "Multiple weak/noisy lifestyle signals; decisive private HbA1c.",
+      "agents_structured": {
+        "A1": {
+          "Age": 44,
+          "Sex": "Male",
+          "BP": "138/88"
+        },
+        "A2": {
+          "BMI": 29.7,
+          "Waist_cm": 104
+        },
+        "A3": {
+          "Sleep": "5\u20136 hrs/night",
+          "PhysicalActivity": "Occasional weekends",
+          "SugaryBeverages": "3\u20134\u00d7/week"
+        },
+        "A4": {
+          "FamilyHistory_T2D": "No known"
+        },
+        "A5": {
+          "FastingGlucose_mg_dL": 113
+        },
+        "A6": {
+          "Triglycerides_mg_dL": 228,
+          "HDL_mg_dL": 34
+        },
+        "A7": {
+          "HbA1c_pct": 6.7
+        },
+        "A8": {
+          "Symptoms": "Fatigue + occasional thirst"
+        },
+        "A9": {
+          "RecentSteroids": "No"
+        },
+        "A10": {
+          "NewExerciseRoutine": "Started brisk walks 4\u00d7/week in last 3 weeks",
+          "WeightChange": "Down ~3 lbs in last month"
+        }
+      }
+    },
+    {
+      "id": "S02_loan_standard_terms",
+      "domain": "finance",
+      "question": "Approve loan under standard terms?",
+      "label": "NO",
+      "full_view": {
+        "CreditScore": {
+          "value": 689,
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "EmploymentType": {
+          "value": "Full-time salaried",
+          "cost": 1,
+          "signal_strength": "weak"
+        },
+        "EmploymentTenure_months": {
+          "value": 8,
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "Income_Stated": {
+          "value": 82000,
+          "cost": 2,
+          "signal_strength": "weak/noisy"
+        },
+        "Income_Verified": {
+          "value": 63000,
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "DTI": {
+          "value": 0.41,
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "Utilization": {
+          "value": 0.88,
+          "cost": 3,
+          "signal_strength": "strong-ish"
+        },
+        "HardInquiries_6mo": {
+          "value": 4,
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "MissedPayments_10mo": {
+          "value": "2\u00d7 30-day late",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "AvgBankBalance": {
+          "value": 540,
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "NSFFees_60d": {
+          "value": 3,
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "RiskyMerchantSpend_mo": {
+          "value": 700,
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "RequestedAmount": {
+          "value": 20000,
+          "cost": 1,
+          "signal_strength": "weak"
+        },
+        "CosignerMention": {
+          "value": "Mentions a family member could co-sign if needed",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        },
+        "RecentRaiseClaim": {
+          "value": "Says a raise is expected next quarter",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "The credit score is around 689, which looks acceptable on the surface. There are about four hard inquiries in the last six months.",
+        "A2": "Debt load is heavy: DTI is roughly 41% and revolving utilization is extremely high at ~88%.",
+        "A3": "They report full-time salaried employment and claim $82k annual income, with about 8 months of tenure.",
+        "A4": "Verified payroll data suggests income is closer to $63k annually, notably below the stated number.",
+        "A5": "There are two 30-day delinquencies in the last ~10 months, a strong default-risk indicator.",
+        "A6": "Banking data suggests limited buffer: average balance is around $540. Short-term liquidity stress is visible.",
+        "A7": "There were about three overdraft/NSF fees in the past 60 days.",
+        "A8": "Spending includes roughly $700/month in gaming and betting-related merchants, which raises instability risk.",
+        "A9": "They\u2019re requesting about $20k and have no meaningful cash reserves to absorb shocks.",
+        "A10": "They mention a family member could co-sign and claim a raise is expected next quarter, which sounds reassuring but is not verified."
+      },
+      "notes": "Tempting narrative (raise/co-signer) vs. decisive verified-income mismatch + delinquencies.",
+      "agents_structured": {
+        "A1": {
+          "CreditScore": 689,
+          "HardInquiries_6mo": 4
+        },
+        "A2": {
+          "DTI": 0.41,
+          "Utilization": 0.88
+        },
+        "A3": {
+          "EmploymentType": "Full-time salaried",
+          "EmploymentTenure_months": 8,
+          "Income_Stated": 82000
+        },
+        "A4": {
+          "Income_Verified": 63000
+        },
+        "A5": {
+          "MissedPayments_10mo": "2\u00d7 30-day late"
+        },
+        "A6": {
+          "AvgBankBalance": 540
+        },
+        "A7": {
+          "NSFFees_60d": 3
+        },
+        "A8": {
+          "RiskyMerchantSpend_mo": 700
+        },
+        "A9": {
+          "RequestedAmount": 20000
+        },
+        "A10": {
+          "CosignerMention": "Mentions a family member could co-sign if needed",
+          "RecentRaiseClaim": "Says a raise is expected next quarter"
+        }
+      }
+    },
+    {
+      "id": "S03_endpoint_isolation",
+      "domain": "cybersecurity",
+      "question": "Isolate endpoint immediately?",
+      "label": "YES",
+      "full_view": {
+        "OutboundSpike": {
+          "value": "5\u00d7 baseline",
+          "cost": 2,
+          "signal_strength": "medium/noisy"
+        },
+        "BackupWindow": {
+          "value": "Active",
+          "cost": 2,
+          "signal_strength": "misleading (benign confound)",
+          "tag": "misleading"
+        },
+        "PowerShellSuspicious": {
+          "value": "Yes",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "ProcessChain": {
+          "value": "Doc viewer \u2192 PowerShell \u2192 curl",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "DomainAge": {
+          "value": "Registered 5 days ago",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "ThreatIntel_C2": {
+          "value": "Match to known C2",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "LoginAnomaly": {
+          "value": "New country successful login",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "MFA": {
+          "value": "Not triggered (legacy app)",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "PatchLevel": {
+          "value": "10 months behind",
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "SMBAttempts": {
+          "value": 30,
+          "cost": 4,
+          "signal_strength": "medium"
+        },
+        "EncryptionAttempts": {
+          "value": 12,
+          "cost": 4,
+          "signal_strength": "medium/noisy"
+        },
+        "LegitScriptRollout": {
+          "value": "IT pushed a maintenance script yesterday",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "Network telemetry shows outbound traffic about five times normal, with an unusual newly registered destination domain.",
+        "A2": "Threat intelligence indicates the destination domain matches known command-and-control infrastructure, which is highly concerning.",
+        "A3": "EDR flagged suspicious PowerShell behavior, and the process chain looks like a document viewer spawning PowerShell and then curl.",
+        "A4": "Authentication logs show a successful login from a new country that doesn\u2019t match the user\u2019s history.",
+        "A5": "MFA didn\u2019t trigger due to a legacy application path, weakening account integrity guarantees.",
+        "A6": "Backup operations are active right now, which can create benign spikes and adds ambiguity.",
+        "A7": "The endpoint is about ten months behind on patches, increasing exploit likelihood.",
+        "A8": "There are around thirty SMB authentication attempts that could reflect lateral movement probing.",
+        "A9": "A small number of files were rapidly modified in an encryption-like pattern, though it\u2019s not yet widespread.",
+        "A10": "IT notes they pushed a legitimate maintenance script yesterday, which could partially explain scripting activity but doesn\u2019t explain C2 intel or the login anomaly."
+      },
+      "notes": "Backup/script rollout are tempting benign explanations; decisive C2 intel + impossible travel login.",
+      "agents_structured": {
+        "A1": {
+          "OutboundSpike": "5\u00d7 baseline",
+          "DomainAge": "Registered 5 days ago"
+        },
+        "A2": {
+          "ThreatIntel_C2": "Match to known C2"
+        },
+        "A3": {
+          "PowerShellSuspicious": "Yes",
+          "ProcessChain": "Doc viewer \u2192 PowerShell \u2192 curl"
+        },
+        "A4": {
+          "LoginAnomaly": "New country successful login"
+        },
+        "A5": {
+          "MFA": "Not triggered (legacy app)"
+        },
+        "A6": {
+          "BackupWindow": "Active"
+        },
+        "A7": {
+          "PatchLevel": "10 months behind"
+        },
+        "A8": {
+          "SMBAttempts": 30
+        },
+        "A9": {
+          "EncryptionAttempts": 12
+        },
+        "A10": {
+          "LegitScriptRollout": "IT pushed a maintenance script yesterday"
+        }
+      }
+    },
+    {
+      "id": "S04_pump_shutdown",
+      "domain": "industrial",
+      "question": "Shut down pump for inspection now?",
+      "label": "YES",
+      "full_view": {
+        "FlowRate": {
+          "value": "Stable",
+          "cost": 1,
+          "signal_strength": "weak/noisy"
+        },
+        "OutletPressure": {
+          "value": "Slightly reduced",
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "VibrationRMS": {
+          "value": "+28% above baseline",
+          "cost": 3,
+          "signal_strength": "medium/noisy"
+        },
+        "BearingBandPeak": {
+          "value": "Present",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "MotorTempDeltaC": {
+          "value": 9,
+          "cost": 3,
+          "signal_strength": "medium/noisy"
+        },
+        "OilMetalDebris": {
+          "value": "High metallic particulate",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "OilViscosity": {
+          "value": "Slightly low",
+          "cost": 3,
+          "signal_strength": "weak/medium"
+        },
+        "DustStorm": {
+          "value": "Yesterday",
+          "cost": 2,
+          "signal_strength": "misleading (sensor noise confound)",
+          "tag": "misleading"
+        },
+        "OperatorSqueal": {
+          "value": "Intermittent squeal",
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "MinorAlarms": {
+          "value": 2,
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "RecentFilterChange": {
+          "value": "Inlet filter replaced last week",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "Flow rate has stayed stable, which can falsely reassure stakeholders that everything is fine.",
+        "A2": "Outlet pressure is slightly reduced, a subtle warning sign when paired with other indicators.",
+        "A3": "Vibration RMS is up about 28% from baseline, which can be noisy and has multiple possible causes.",
+        "A4": "The vibration spectrum shows a distinct bearing-band peak, which is more specific than RMS alone.",
+        "A5": "Oil lab testing shows high metallic particulate, strongly suggesting internal wear consistent with bearing failure.",
+        "A6": "Oil viscosity is slightly low, which can accelerate wear, though it\u2019s not definitive on its own.",
+        "A7": "Motor temperature is elevated by about 9\u00b0C above baseline, consistent with friction and mechanical stress.",
+        "A8": "A dust storm happened yesterday, which might add sensor noise and makes some readings feel ambiguous.",
+        "A9": "The operator reported an intermittent squeal, which often correlates with mechanical wear.",
+        "A10": "The inlet filter was replaced last week, which sounds reassuring, but it doesn\u2019t explain metallic debris plus a bearing-band signature."
+      },
+      "notes": "Dust storm + filter change are tempting confounds; decisive oil debris + bearing peak.",
+      "agents_structured": {
+        "A1": {
+          "FlowRate": "Stable"
+        },
+        "A2": {
+          "OutletPressure": "Slightly reduced"
+        },
+        "A3": {
+          "VibrationRMS": "+28% above baseline"
+        },
+        "A4": {
+          "BearingBandPeak": "Present"
+        },
+        "A5": {
+          "OilMetalDebris": "High metallic particulate"
+        },
+        "A6": {
+          "OilViscosity": "Slightly low"
+        },
+        "A7": {
+          "MotorTempDeltaC": 9
+        },
+        "A8": {
+          "DustStorm": "Yesterday"
+        },
+        "A9": {
+          "OperatorSqueal": "Intermittent squeal"
+        },
+        "A10": {
+          "RecentFilterChange": "Inlet filter replaced last week",
+          "MinorAlarms": 2
+        }
+      }
+    },
+    {
+      "id": "S05_food_recall",
+      "domain": "supply_chain",
+      "question": "Recall this production lot now?",
+      "label": "YES",
+      "full_view": {
+        "Product": {
+          "value": "Ready-to-eat salad kit",
+          "cost": 1,
+          "signal_strength": "weak"
+        },
+        "LotSize": {
+          "value": 16500,
+          "cost": 1,
+          "signal_strength": "weak"
+        },
+        "RoutineMicroTest": {
+          "value": "Borderline near threshold",
+          "cost": 4,
+          "signal_strength": "medium/noisy"
+        },
+        "ConfirmatoryTest": {
+          "value": "Pending (18\u201324h)",
+          "cost": 2,
+          "signal_strength": "misleading (wait-and-see)",
+          "tag": "misleading"
+        },
+        "TempExcursion": {
+          "value": "2 hours > 45\u00b0F",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "SealDefects": {
+          "value": "0.4% defects",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "SanitizerLow": {
+          "value": "Low for 35 min",
+          "cost": 4,
+          "signal_strength": "medium"
+        },
+        "Complaints": {
+          "value": 11,
+          "cost": 2,
+          "signal_strength": "weak/noisy"
+        },
+        "ClusteredIllness": {
+          "value": "4 clustered same metro area",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "Traceability": {
+          "value": "1 pallet ID uncertain",
+          "cost": 4,
+          "signal_strength": "medium"
+        },
+        "SupplierReputation": {
+          "value": "Supplier has clean audits for 3 years",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "This is a ready-to-eat salad kit lot of about 16,500 units, and the routine micro screen is borderline near threshold.",
+        "A2": "A confirmatory lab test is pending and would take about 18\u201324 hours, suggesting a tempting \u2018wait\u2019 option.",
+        "A3": "Cold chain logs show about two hours above 45\u00b0F, which materially increases bacterial growth risk for this product.",
+        "A4": "Packaging QA detected seal defects around 0.4%, unusually high and potentially compromising shelf stability.",
+        "A5": "There was a sanitation incident: sanitizer concentration ran low for about 35 minutes during processing.",
+        "A6": "Customer service recorded 11 complaints, which can be noisy and non-specific by itself.",
+        "A7": "Public health liaison notes four illness reports clustered in the same metro area in a short window.",
+        "A8": "Traceability is imperfect: one pallet identifier is uncertain, making targeted removal difficult.",
+        "A9": "The supplier has had clean audits for three years, which is reassuring but doesn\u2019t eliminate current-lot risk.",
+        "A10": "Given it\u2019s ready-to-eat with no consumer kill step, temperature excursion plus clustered illnesses strongly favor recall."
+      },
+      "notes": "Borderline tests + good supplier reputation tempt delay; decisive excursion + clustered illnesses.",
+      "agents_structured": {
+        "A1": {
+          "Product": "Ready-to-eat salad kit",
+          "LotSize": 16500,
+          "RoutineMicroTest": "Borderline near threshold"
+        },
+        "A2": {
+          "ConfirmatoryTest": "Pending (18\u201324h)"
+        },
+        "A3": {
+          "TempExcursion": "2 hours > 45\u00b0F"
+        },
+        "A4": {
+          "SealDefects": "0.4% defects"
+        },
+        "A5": {
+          "SanitizerLow": "Low for 35 min"
+        },
+        "A6": {
+          "Complaints": 11
+        },
+        "A7": {
+          "ClusteredIllness": "4 clustered same metro area"
+        },
+        "A8": {
+          "Traceability": "1 pallet ID uncertain"
+        },
+        "A9": {
+          "SupplierReputation": "Supplier has clean audits for 3 years"
+        },
+        "A10": {
+          "TempExcursion": "2 hours > 45\u00b0F",
+          "ClusteredIllness": "4 clustered same metro area",
+          "Product": "Ready-to-eat salad kit"
+        }
+      }
+    },
+    {
+      "id": "S06_stroke_triage",
+      "domain": "healthcare",
+      "question": "Activate stroke protocol / emergency imaging now?",
+      "label": "YES",
+      "full_view": {
+        "Age": {
+          "value": 59,
+          "cost": 1,
+          "signal_strength": "weak"
+        },
+        "Sex": {
+          "value": "Female",
+          "cost": 1,
+          "signal_strength": "weak"
+        },
+        "BP": {
+          "value": "154/96",
+          "cost": 2,
+          "signal_strength": "medium"
+        },
+        "Headache": {
+          "value": "Moderate",
+          "cost": 2,
+          "signal_strength": "weak/noisy"
+        },
+        "FAST_FacialDroop": {
+          "value": "Subtle right droop",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "FAST_ArmWeakness": {
+          "value": "Right arm drift present",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "Speech": {
+          "value": "Slight slurring",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "OnsetMinutes": {
+          "value": 55,
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "GlucoseFingerstick": {
+          "value": 92,
+          "cost": 2,
+          "signal_strength": "weak"
+        },
+        "AtrialFibrillation": {
+          "value": "Known history",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "Anxiety": {
+          "value": "Very anxious, hyperventilating",
+          "cost": 2,
+          "signal_strength": "misleading (symptom confound)",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "This is a 59-year-old female with blood pressure around 154/96.",
+        "A2": "She reports a moderate headache, which can be noisy and non-specific.",
+        "A3": "Neurologic exam suggests subtle right facial droop.",
+        "A4": "There is right arm drift/weakness on exam, which is concerning.",
+        "A5": "Speech is slightly slurred compared to baseline, raising stroke suspicion.",
+        "A6": "Symptoms began about 55 minutes ago, which matters for time-sensitive intervention windows.",
+        "A7": "Fingerstick glucose is normal at about 92, so hypoglycemia is less likely.",
+        "A8": "She has a known history of atrial fibrillation, which substantially increases stroke risk.",
+        "A9": "She appears very anxious and is hyperventilating, which could confound symptom interpretation.",
+        "A10": "Even if anxiety is present, focal deficits plus AFib make immediate stroke triage appropriate."
+      },
+      "notes": "Noisy headache/anxiety vs decisive AFib + focal deficits.",
+      "agents_structured": {
+        "A1": {
+          "Age": 59,
+          "Sex": "Female",
+          "BP": "154/96"
+        },
+        "A2": {
+          "Headache": "Moderate",
+          "Anxiety": "Very anxious, hyperventilating"
+        },
+        "A3": {
+          "FAST_FacialDroop": "Subtle right droop"
+        },
+        "A4": {
+          "FAST_ArmWeakness": "Right arm drift present"
+        },
+        "A5": {
+          "Speech": "Slight slurring"
+        },
+        "A6": {
+          "OnsetMinutes": 55
+        },
+        "A7": {
+          "GlucoseFingerstick": 92
+        },
+        "A8": {
+          "AtrialFibrillation": "Known history"
+        },
+        "A9": {
+          "Anxiety": "Very anxious, hyperventilating"
+        },
+        "A10": {
+          "AtrialFibrillation": "Known history",
+          "FAST_ArmWeakness": "Right arm drift present",
+          "Speech": "Slight slurring"
+        }
+      }
+    },
+    {
+      "id": "S07_sepsis_escalation",
+      "domain": "healthcare",
+      "question": "Initiate sepsis bundle now?",
+      "label": "YES",
+      "full_view": {
+        "Age": {
+          "value": 71,
+          "cost": 1,
+          "signal_strength": "weak"
+        },
+        "Temp_C": {
+          "value": 38.1,
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "HR": {
+          "value": 112,
+          "cost": 2,
+          "signal_strength": "medium"
+        },
+        "BP": {
+          "value": "92/58",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "RR": {
+          "value": 26,
+          "cost": 2,
+          "signal_strength": "medium"
+        },
+        "WBC": {
+          "value": 13.8,
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "Lactate": {
+          "value": 3.9,
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "Creatinine": {
+          "value": 1.9,
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "Source": {
+          "value": "Possible UTI",
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "RecentPT": {
+          "value": "Had vigorous PT earlier today",
+          "cost": 2,
+          "signal_strength": "misleading",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "This is a 71-year-old with fever around 38.1\u00b0C and tachycardia near 112.",
+        "A2": "Blood pressure is low at about 92/58, suggesting possible shock.",
+        "A3": "Respiratory rate is elevated around 26, consistent with systemic stress.",
+        "A4": "WBC is elevated at about 13.8, consistent with infection but not definitive alone.",
+        "A5": "Lactate is 3.9, indicating poor perfusion and high sepsis risk.",
+        "A6": "Creatinine is up around 1.9, suggesting acute kidney stress.",
+        "A7": "There\u2019s a possible urinary source based on symptoms and preliminary notes.",
+        "A8": "They had a vigorous physical therapy session earlier, which could partially explain tachycardia.",
+        "A9": "Even with confounds, hypotension plus high lactate strongly supports immediate sepsis protocol.",
+        "A10": "Time-sensitive fluids/antibiotics are likely justified given perfusion markers."
+      },
+      "notes": "Noisy fever/tachycardia vs decisive lactate + hypotension.",
+      "agents_structured": {
+        "A1": {
+          "Age": 71,
+          "Temp_C": 38.1,
+          "HR": 112
+        },
+        "A2": {
+          "BP": "92/58"
+        },
+        "A3": {
+          "RR": 26
+        },
+        "A4": {
+          "WBC": 13.8
+        },
+        "A5": {
+          "Lactate": 3.9
+        },
+        "A6": {
+          "Creatinine": 1.9
+        },
+        "A7": {
+          "Source": "Possible UTI"
+        },
+        "A8": {
+          "RecentPT": "Had vigorous PT earlier today"
+        },
+        "A9": {
+          "BP": "92/58",
+          "Lactate": 3.9
+        },
+        "A10": {
+          "Lactate": 3.9,
+          "BP": "92/58",
+          "RR": 26
+        }
+      }
+    },
+    {
+      "id": "S08_card_fraud_decline",
+      "domain": "finance",
+      "question": "Decline transaction (or require step-up verification)?",
+      "label": "YES",
+      "full_view": {
+        "Amount": {
+          "value": 1280,
+          "cost": 1,
+          "signal_strength": "weak/medium"
+        },
+        "Merchant": {
+          "value": "Electronics reseller",
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "CardPresent": {
+          "value": "No (online)",
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "NewDevice": {
+          "value": "Yes",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "IPGeo": {
+          "value": "Different country",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "TravelNotice": {
+          "value": "Filed yesterday",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        },
+        "AccountTakeoverSignal": {
+          "value": "Password reset 3 hours ago",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "Velocity": {
+          "value": "3 attempts in 10 min",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "PriorHistory": {
+          "value": "No prior high-value electronics buys",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "Successful2FA": {
+          "value": "2FA succeeded earlier today",
+          "cost": 2,
+          "signal_strength": "misleading",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "A $1,280 online electronics purchase is being attempted at a reseller, which is moderately risky.",
+        "A2": "The transaction is online with a new device, increasing fraud likelihood.",
+        "A3": "IP geolocation points to a different country than typical usage patterns.",
+        "A4": "A travel notice was filed yesterday, which could be reassuring but can also be abused as cover.",
+        "A5": "There was a password reset about 3 hours ago, a strong account-takeover signal.",
+        "A6": "There were three transaction attempts within 10 minutes, suggesting high velocity.",
+        "A7": "The account has no prior pattern of high-value electronics purchases at similar merchants.",
+        "A8": "Card is not present (online), which removes some physical verification.",
+        "A9": "2FA succeeded earlier today, which is reassuring but doesn\u2019t rule out ATO if SIM swap or phishing occurred.",
+        "A10": "Given password reset + foreign IP + velocity, declining or stepping up verification is warranted."
+      },
+      "notes": "Tempting travel notice/2FA vs decisive password reset + velocity + foreign IP.",
+      "agents_structured": {
+        "A1": {
+          "Amount": 1280,
+          "Merchant": "Electronics reseller"
+        },
+        "A2": {
+          "NewDevice": "Yes",
+          "CardPresent": "No (online)"
+        },
+        "A3": {
+          "IPGeo": "Different country"
+        },
+        "A4": {
+          "TravelNotice": "Filed yesterday"
+        },
+        "A5": {
+          "AccountTakeoverSignal": "Password reset 3 hours ago"
+        },
+        "A6": {
+          "Velocity": "3 attempts in 10 min"
+        },
+        "A7": {
+          "PriorHistory": "No prior high-value electronics buys"
+        },
+        "A8": {
+          "CardPresent": "No (online)"
+        },
+        "A9": {
+          "Successful2FA": "2FA succeeded earlier today"
+        },
+        "A10": {
+          "AccountTakeoverSignal": "Password reset 3 hours ago",
+          "IPGeo": "Different country",
+          "Velocity": "3 attempts in 10 min"
+        }
+      }
+    },
+    {
+      "id": "S09_claim_fraud_flag",
+      "domain": "insurance",
+      "question": "Flag claim for investigation (possible fraud)?",
+      "label": "YES",
+      "full_view": {
+        "ClaimType": {
+          "value": "Water damage",
+          "cost": 1,
+          "signal_strength": "weak"
+        },
+        "ClaimAmount": {
+          "value": 18500,
+          "cost": 1,
+          "signal_strength": "medium"
+        },
+        "PolicyAgeMonths": {
+          "value": 2,
+          "cost": 3,
+          "signal_strength": "strong-ish"
+        },
+        "PriorClaims": {
+          "value": 0,
+          "cost": 2,
+          "signal_strength": "weak"
+        },
+        "PlumberInvoice": {
+          "value": "Provided",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        },
+        "MetadataMismatch": {
+          "value": "Invoice metadata edited",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "MoistureMap": {
+          "value": "Inconsistent pattern",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "NeighborReport": {
+          "value": "No leak observed",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "PhotoEXIF": {
+          "value": "Photos taken before claimed date",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "CooperativeCustomer": {
+          "value": "Responds quickly, polite",
+          "cost": 1,
+          "signal_strength": "misleading",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "This is a water-damage claim for about $18,500 on a very new policy (2 months old).",
+        "A2": "There are no prior claims, which is mildly reassuring but not decisive.",
+        "A3": "A plumber invoice is provided, which looks reassuring at first glance.",
+        "A4": "Invoice metadata appears edited, which is a strong fabrication signal.",
+        "A5": "Moisture mapping suggests an inconsistent pattern that doesn\u2019t match a typical pipe leak.",
+        "A6": "A neighbor report indicates they did not observe any active leak or water shutdown activity.",
+        "A7": "Photo EXIF timestamps suggest images were taken before the claimed incident date.",
+        "A8": "The claimant is very cooperative and responsive, which can be misleadingly reassuring.",
+        "A9": "Given metadata and EXIF discrepancies, the claim should be flagged for investigation.",
+        "A10": "Even with a provided invoice, multiple hard forensic inconsistencies dominate."
+      },
+      "notes": "Tempting invoice/cooperation vs decisive EXIF + metadata mismatch.",
+      "agents_structured": {
+        "A1": {
+          "ClaimType": "Water damage",
+          "ClaimAmount": 18500,
+          "PolicyAgeMonths": 2
+        },
+        "A2": {
+          "PriorClaims": 0
+        },
+        "A3": {
+          "PlumberInvoice": "Provided",
+          "CooperativeCustomer": "Responds quickly, polite"
+        },
+        "A4": {
+          "MetadataMismatch": "Invoice metadata edited"
+        },
+        "A5": {
+          "MoistureMap": "Inconsistent pattern"
+        },
+        "A6": {
+          "NeighborReport": "No leak observed"
+        },
+        "A7": {
+          "PhotoEXIF": "Photos taken before claimed date"
+        },
+        "A8": {
+          "CooperativeCustomer": "Responds quickly, polite"
+        },
+        "A9": {
+          "MetadataMismatch": "Invoice metadata edited",
+          "PhotoEXIF": "Photos taken before claimed date"
+        },
+        "A10": {
+          "MetadataMismatch": "Invoice metadata edited",
+          "PhotoEXIF": "Photos taken before claimed date",
+          "PlumberInvoice": "Provided"
+        }
+      }
+    },
+    {
+      "id": "S10_hiring_integrity",
+      "domain": "hiring",
+      "question": "Advance candidate to final round?",
+      "label": "NO",
+      "full_view": {
+        "GPA": {
+          "value": 3.92,
+          "cost": 1,
+          "signal_strength": "weak/noisy"
+        },
+        "Projects": {
+          "value": "2 strong projects",
+          "cost": 2,
+          "signal_strength": "medium"
+        },
+        "Recommendation": {
+          "value": "Glowing letter",
+          "cost": 3,
+          "signal_strength": "medium/noisy"
+        },
+        "CodingTest": {
+          "value": "Perfect score",
+          "cost": 3,
+          "signal_strength": "medium/noisy"
+        },
+        "InterviewDepth": {
+          "value": "Shallow explanations",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "PlagiarismSignal": {
+          "value": "Code similarity 94% with public repo",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "GitHistory": {
+          "value": "Sparse commits, big dumps",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "ReferenceCheck": {
+          "value": "Supervisor unsure of contributions",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "Charisma": {
+          "value": "Very polished and confident",
+          "cost": 1,
+          "signal_strength": "misleading",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "The candidate has a very high GPA (3.92) and presents as polished and confident.",
+        "A2": "They list two strong projects and a glowing recommendation letter, though these signals can be noisy.",
+        "A3": "They scored perfectly on a coding test, but their interview explanations were surprisingly shallow.",
+        "A4": "Code similarity checks show a 94% match with a well-known public repository, indicating likely plagiarism.",
+        "A5": "Git history is sparse with large, infrequent commits that don\u2019t match organic development.",
+        "A6": "A reference check suggests the supervisor is unsure about the candidate\u2019s claimed contribution level.",
+        "A7": "Strong surface signals exist, but contribution authenticity is questionable.",
+        "A8": "Confidence and polish can be misleading if not matched by technical depth.",
+        "A9": "Given plagiarism + reference ambiguity, we should not advance without clarification.",
+        "A10": "The high-value private checks overwhelm the noisy public signals."
+      },
+      "notes": "Tempting GPA/polish vs decisive plagiarism + reference uncertainty.",
+      "agents_structured": {
+        "A1": {
+          "GPA": 3.92,
+          "Charisma": "Very polished and confident"
+        },
+        "A2": {
+          "Projects": "2 strong projects",
+          "Recommendation": "Glowing letter"
+        },
+        "A3": {
+          "CodingTest": "Perfect score",
+          "InterviewDepth": "Shallow explanations"
+        },
+        "A4": {
+          "PlagiarismSignal": "Code similarity 94% with public repo"
+        },
+        "A5": {
+          "GitHistory": "Sparse commits, big dumps"
+        },
+        "A6": {
+          "ReferenceCheck": "Supervisor unsure of contributions"
+        },
+        "A7": {
+          "Projects": "2 strong projects",
+          "CodingTest": "Perfect score"
+        },
+        "A8": {
+          "Charisma": "Very polished and confident",
+          "InterviewDepth": "Shallow explanations"
+        },
+        "A9": {
+          "PlagiarismSignal": "Code similarity 94% with public repo",
+          "ReferenceCheck": "Supervisor unsure of contributions"
+        },
+        "A10": {
+          "PlagiarismSignal": "Code similarity 94% with public repo",
+          "GitHistory": "Sparse commits, big dumps",
+          "ReferenceCheck": "Supervisor unsure of contributions"
+        }
+      }
+    },
+    {
+      "id": "S11_wildfire_evacuation",
+      "domain": "public_policy",
+      "question": "Issue mandatory evacuation order for the zone?",
+      "label": "YES",
+      "full_view": {
+        "Wind": {
+          "value": "Gusts 35 mph forecast",
+          "cost": 3,
+          "signal_strength": "strong-ish"
+        },
+        "Humidity": {
+          "value": "14%",
+          "cost": 2,
+          "signal_strength": "medium"
+        },
+        "FireDistance_km": {
+          "value": 12,
+          "cost": 2,
+          "signal_strength": "medium"
+        },
+        "Containment": {
+          "value": "40%",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        },
+        "FuelLoad": {
+          "value": "High dry brush",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "SpottingObserved": {
+          "value": "Yes, embers jumping ahead",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "RoadCapacity": {
+          "value": "Limited: 2 exits",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "ShelterReady": {
+          "value": "Yes",
+          "cost": 1,
+          "signal_strength": "weak"
+        },
+        "LastYearFalseAlarm": {
+          "value": "Evacuation warning last year ended benignly",
+          "cost": 1,
+          "signal_strength": "misleading",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "Forecasts show strong winds with gusts near 35 mph and low humidity around 14%.",
+        "A2": "The main fire is roughly 12 km away; that can feel distant but changes fast under wind.",
+        "A3": "Containment is reported at 40%, which sounds reassuring but is not always predictive of flare-ups.",
+        "A4": "Fuel load is high with dry brush conditions that enable rapid spread.",
+        "A5": "Spotting has been observed, with embers jumping ahead of the main line\u2014this sharply increases risk.",
+        "A6": "Evacuation logistics are constrained: the community has only two main exit roads.",
+        "A7": "Shelter capacity is available, so evacuation is operationally feasible.",
+        "A8": "A false alarm last year may bias people against evacuating, but conditions differ now.",
+        "A9": "Given spotting + wind + limited exits, early evacuation is safer.",
+        "A10": "Waiting increases congestion risk and reduces welfare under uncertainty."
+      },
+      "notes": "Misleading containment/false-alarm memory vs decisive spotting + wind + constrained exits.",
+      "agents_structured": {
+        "A1": {
+          "Wind": "Gusts 35 mph forecast",
+          "Humidity": "14%"
+        },
+        "A2": {
+          "FireDistance_km": 12
+        },
+        "A3": {
+          "Containment": "40%"
+        },
+        "A4": {
+          "FuelLoad": "High dry brush"
+        },
+        "A5": {
+          "SpottingObserved": "Yes, embers jumping ahead"
+        },
+        "A6": {
+          "RoadCapacity": "Limited: 2 exits"
+        },
+        "A7": {
+          "ShelterReady": "Yes"
+        },
+        "A8": {
+          "LastYearFalseAlarm": "Evacuation warning last year ended benignly"
+        },
+        "A9": {
+          "SpottingObserved": "Yes, embers jumping ahead",
+          "Wind": "Gusts 35 mph forecast",
+          "RoadCapacity": "Limited: 2 exits"
+        },
+        "A10": {
+          "SpottingObserved": "Yes, embers jumping ahead",
+          "Wind": "Gusts 35 mph forecast",
+          "FuelLoad": "High dry brush",
+          "RoadCapacity": "Limited: 2 exits"
+        }
+      }
+    },
+    {
+      "id": "S12_student_intervention",
+      "domain": "education",
+      "question": "Trigger at-risk student support intervention?",
+      "label": "YES",
+      "full_view": {
+        "Attendance": {
+          "value": "78% last month",
+          "cost": 2,
+          "signal_strength": "medium"
+        },
+        "GradesTrend": {
+          "value": "Dropping in math/science",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "BehaviorNotes": {
+          "value": "Quiet, disengaged",
+          "cost": 2,
+          "signal_strength": "weak/noisy"
+        },
+        "HomeStability": {
+          "value": "Recent housing move",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "CounselorReport": {
+          "value": "Expressed hopelessness",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "PeerSupport": {
+          "value": "Has 2 close friends",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        },
+        "SleepInClass": {
+          "value": "Yes, frequently",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "Discipline": {
+          "value": "No incidents",
+          "cost": 1,
+          "signal_strength": "weak"
+        }
+      },
+      "agents_prose": {
+        "A1": "Attendance has fallen to about 78% over the last month.",
+        "A2": "Grades are trending downward, especially in math and science.",
+        "A3": "Teachers note the student is quiet and disengaged, but this can be noisy.",
+        "A4": "Family context includes a recent housing move, which can destabilize routines.",
+        "A5": "A counselor report notes the student expressed hopelessness, which is a high-risk signal.",
+        "A6": "The student frequently falls asleep in class, suggesting stress or sleep issues.",
+        "A7": "There have been no discipline incidents, which can be reassuring but doesn\u2019t rule out risk.",
+        "A8": "They do have a couple of close friends, which is reassuring but not sufficient protection.",
+        "A9": "Given counselor disclosure plus attendance decline, intervention should be initiated.",
+        "A10": "Early support likely dominates any cost of engaging resources now."
+      },
+      "notes": "Tempting peer-support/no-discipline vs decisive counselor hopelessness signal.",
+      "agents_structured": {
+        "A1": {
+          "Attendance": "78% last month"
+        },
+        "A2": {
+          "GradesTrend": "Dropping in math/science"
+        },
+        "A3": {
+          "BehaviorNotes": "Quiet, disengaged"
+        },
+        "A4": {
+          "HomeStability": "Recent housing move"
+        },
+        "A5": {
+          "CounselorReport": "Expressed hopelessness"
+        },
+        "A6": {
+          "SleepInClass": "Yes, frequently"
+        },
+        "A7": {
+          "Discipline": "No incidents"
+        },
+        "A8": {
+          "PeerSupport": "Has 2 close friends"
+        },
+        "A9": {
+          "CounselorReport": "Expressed hopelessness",
+          "Attendance": "78% last month",
+          "GradesTrend": "Dropping in math/science"
+        },
+        "A10": {
+          "CounselorReport": "Expressed hopelessness",
+          "HomeStability": "Recent housing move",
+          "Attendance": "78% last month"
+        }
+      }
+    },
+    {
+      "id": "S13_quality_hold",
+      "domain": "manufacturing",
+      "question": "Place production lot on quality hold?",
+      "label": "YES",
+      "full_view": {
+        "DefectRate": {
+          "value": "1.8% (up from 0.6%)",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "VisualInspection": {
+          "value": "Mostly normal",
+          "cost": 2,
+          "signal_strength": "misleading",
+          "tag": "misleading"
+        },
+        "TorqueDeviation": {
+          "value": "Slight drift",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "SupplierChange": {
+          "value": "New batch of fasteners",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "XrayAnomaly": {
+          "value": "Micro-cracks detected",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "FieldComplaints": {
+          "value": "2 early failures reported",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "TestBench": {
+          "value": "Pass rate still 98%",
+          "cost": 2,
+          "signal_strength": "misleading (reassuring)",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "Defect rate has increased to about 1.8% from a baseline near 0.6%.",
+        "A2": "Visual inspection looks mostly normal, which can be misleading for latent failures.",
+        "A3": "Assembly torque readings show a slight drift, suggesting a process shift.",
+        "A4": "A new batch of fasteners was introduced recently, which could be a source of variability.",
+        "A5": "X-ray sampling detected micro-cracks, a decisive latent defect signal.",
+        "A6": "Field reports include two early failures, which increases severity.",
+        "A7": "Test bench pass rate is still 98%, which sounds reassuring but may miss rare crack propagation.",
+        "A8": "Holding the lot may prevent costly downstream failures.",
+        "A9": "Given micro-cracks, quality hold and root-cause analysis are justified.",
+        "A10": "Surface checks shouldn\u2019t override imaging evidence."
+      },
+      "notes": "Misleading visual/bench-pass vs decisive X-ray micro-cracks.",
+      "agents_structured": {
+        "A1": {
+          "DefectRate": "1.8% (up from 0.6%)"
+        },
+        "A2": {
+          "VisualInspection": "Mostly normal"
+        },
+        "A3": {
+          "TorqueDeviation": "Slight drift"
+        },
+        "A4": {
+          "SupplierChange": "New batch of fasteners"
+        },
+        "A5": {
+          "XrayAnomaly": "Micro-cracks detected"
+        },
+        "A6": {
+          "FieldComplaints": "2 early failures reported"
+        },
+        "A7": {
+          "TestBench": "Pass rate still 98%"
+        },
+        "A8": {
+          "DefectRate": "1.8% (up from 0.6%)",
+          "SupplierChange": "New batch of fasteners"
+        },
+        "A9": {
+          "XrayAnomaly": "Micro-cracks detected",
+          "FieldComplaints": "2 early failures reported"
+        },
+        "A10": {
+          "XrayAnomaly": "Micro-cracks detected",
+          "VisualInspection": "Mostly normal",
+          "TestBench": "Pass rate still 98%"
+        }
+      }
+    },
+    {
+      "id": "S14_grid_load_shed",
+      "domain": "energy",
+      "question": "Trigger controlled load shedding (rolling blackout) now?",
+      "label": "YES",
+      "full_view": {
+        "DemandForecast": {
+          "value": "Peak +18% vs normal",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "ReserveMargin": {
+          "value": "3%",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "GeneratorOutage": {
+          "value": "One plant offline",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "IntertieSupport": {
+          "value": "Neighbor promised imports",
+          "cost": 2,
+          "signal_strength": "misleading",
+          "tag": "misleading"
+        },
+        "FrequencyDrops": {
+          "value": "2 events in last hour",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "Weather": {
+          "value": "Heat wave continues",
+          "cost": 2,
+          "signal_strength": "medium"
+        }
+      },
+      "agents_prose": {
+        "A1": "Demand forecast indicates peak demand may be up about 18% compared to normal.",
+        "A2": "Reserve margin is around 3%, which is very tight and leaves little buffer.",
+        "A3": "A generator plant is currently offline, reducing capacity further.",
+        "A4": "Neighboring region promised import support, which sounds reassuring but can fail under their own peaks.",
+        "A5": "Grid frequency dropped twice in the last hour, a decisive real-time instability signal.",
+        "A6": "Heat wave conditions persist, increasing both demand and equipment stress.",
+        "A7": "Given frequency drops, preemptive load shedding may prevent uncontrolled collapse.",
+        "A8": "Tight reserves make relying solely on imports risky.",
+        "A9": "Rolling blackout triggers should consider real-time stability events over forecasts alone.",
+        "A10": "The cost of controlled outage is likely lower than cascading failure."
+      },
+      "notes": "Misleading promised imports vs decisive frequency drops + tiny reserves.",
+      "agents_structured": {
+        "A1": {
+          "DemandForecast": "Peak +18% vs normal"
+        },
+        "A2": {
+          "ReserveMargin": "3%"
+        },
+        "A3": {
+          "GeneratorOutage": "One plant offline"
+        },
+        "A4": {
+          "IntertieSupport": "Neighbor promised imports"
+        },
+        "A5": {
+          "FrequencyDrops": "2 events in last hour"
+        },
+        "A6": {
+          "Weather": "Heat wave continues"
+        },
+        "A7": {
+          "FrequencyDrops": "2 events in last hour",
+          "ReserveMargin": "3%"
+        },
+        "A8": {
+          "ReserveMargin": "3%",
+          "IntertieSupport": "Neighbor promised imports"
+        },
+        "A9": {
+          "FrequencyDrops": "2 events in last hour",
+          "DemandForecast": "Peak +18% vs normal",
+          "ReserveMargin": "3%"
+        },
+        "A10": {
+          "FrequencyDrops": "2 events in last hour",
+          "ReserveMargin": "3%",
+          "GeneratorOutage": "One plant offline"
+        }
+      }
+    },
+    {
+      "id": "S15_hr_investigate",
+      "domain": "hr",
+      "question": "Escalate to formal investigation?",
+      "label": "YES",
+      "full_view": {
+        "ReportCount": {
+          "value": 2,
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "AnonymousReport": {
+          "value": "Yes",
+          "cost": 2,
+          "signal_strength": "weak/noisy"
+        },
+        "ManagerFeedback": {
+          "value": "High performer",
+          "cost": 1,
+          "signal_strength": "misleading",
+          "tag": "misleading"
+        },
+        "ChatLogs": {
+          "value": "Borderline messages",
+          "cost": 3,
+          "signal_strength": "medium/noisy"
+        },
+        "WitnessStatement": {
+          "value": "One corroborating witness",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "PatternAcrossTeams": {
+          "value": "Similar reports in prior role",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        }
+      },
+      "agents_prose": {
+        "A1": "There are two reports, one of which is anonymous; this can be noisy.",
+        "A2": "The manager describes the employee as a high performer, which can be misleadingly reassuring.",
+        "A3": "Chat logs include some borderline messages that could be interpreted multiple ways.",
+        "A4": "There is at least one corroborating witness statement supporting the complaint.",
+        "A5": "Background checks suggest similar reports occurred in a prior role across teams, indicating a pattern.",
+        "A6": "Even with ambiguity in isolated logs, repeated pattern evidence raises severity.",
+        "A7": "Escalation to formal investigation can reduce risk of ongoing harm.",
+        "A8": "Anonymous reporting can still be credible when corroborated.",
+        "A9": "High performer status should not outweigh pattern evidence.",
+        "A10": "Proceeding cautiously but promptly is justified given the pattern signal."
+      },
+      "notes": "Misleading high-performer framing vs decisive cross-team pattern evidence.",
+      "agents_structured": {
+        "A1": {
+          "ReportCount": 2,
+          "AnonymousReport": "Yes"
+        },
+        "A2": {
+          "ManagerFeedback": "High performer"
+        },
+        "A3": {
+          "ChatLogs": "Borderline messages"
+        },
+        "A4": {
+          "WitnessStatement": "One corroborating witness"
+        },
+        "A5": {
+          "PatternAcrossTeams": "Similar reports in prior role"
+        },
+        "A6": {
+          "WitnessStatement": "One corroborating witness",
+          "ChatLogs": "Borderline messages"
+        },
+        "A7": {
+          "PatternAcrossTeams": "Similar reports in prior role",
+          "ReportCount": 2
+        },
+        "A8": {
+          "AnonymousReport": "Yes",
+          "WitnessStatement": "One corroborating witness"
+        },
+        "A9": {
+          "ManagerFeedback": "High performer",
+          "PatternAcrossTeams": "Similar reports in prior role"
+        },
+        "A10": {
+          "PatternAcrossTeams": "Similar reports in prior role",
+          "WitnessStatement": "One corroborating witness"
+        }
+      }
+    },
+    {
+      "id": "S16_route_diversion",
+      "domain": "logistics",
+      "question": "Divert to alternate route now?",
+      "label": "YES",
+      "full_view": {
+        "DelayMinutes": {
+          "value": 45,
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "WeatherAlongRoute": {
+          "value": "Thunderstorms likely",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "TrafficCongestion": {
+          "value": "Moderate",
+          "cost": 2,
+          "signal_strength": "weak/noisy"
+        },
+        "FuelRemaining": {
+          "value": "Tight margin",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "AccidentAhead": {
+          "value": "Major closure 2 hours",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "AlternateRoute": {
+          "value": "Longer but clear",
+          "cost": 2,
+          "signal_strength": "misleading (costly time)",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "Current ETA is already delayed by about 45 minutes.",
+        "A2": "Thunderstorms are likely along the current route, adding uncertainty.",
+        "A3": "Traffic is moderate, which is noisy and could worsen quickly.",
+        "A4": "Fuel remaining is a tight margin if delays expand significantly.",
+        "A5": "A major accident closure ahead is expected to block traffic for roughly two hours, which is decisive.",
+        "A6": "The alternate route is longer but currently clear, though it increases distance.",
+        "A7": "Given closure duration, diversion is likely optimal despite longer route.",
+        "A8": "Avoiding a prolonged stop also reduces risk under low fuel margin.",
+        "A9": "Weather adds compounding risk; rerouting earlier helps.",
+        "A10": "The closure signal dominates the noisy congestion estimates."
+      },
+      "notes": "Misleading longer alternate route vs decisive two-hour closure ahead.",
+      "agents_structured": {
+        "A1": {
+          "DelayMinutes": 45
+        },
+        "A2": {
+          "WeatherAlongRoute": "Thunderstorms likely"
+        },
+        "A3": {
+          "TrafficCongestion": "Moderate"
+        },
+        "A4": {
+          "FuelRemaining": "Tight margin"
+        },
+        "A5": {
+          "AccidentAhead": "Major closure 2 hours"
+        },
+        "A6": {
+          "AlternateRoute": "Longer but clear"
+        },
+        "A7": {
+          "AccidentAhead": "Major closure 2 hours",
+          "FuelRemaining": "Tight margin"
+        },
+        "A8": {
+          "FuelRemaining": "Tight margin",
+          "WeatherAlongRoute": "Thunderstorms likely"
+        },
+        "A9": {
+          "WeatherAlongRoute": "Thunderstorms likely",
+          "AccidentAhead": "Major closure 2 hours"
+        },
+        "A10": {
+          "AccidentAhead": "Major closure 2 hours",
+          "DelayMinutes": 45,
+          "FuelRemaining": "Tight margin"
+        }
+      }
+    },
+    {
+      "id": "S17_injunction_triage",
+      "domain": "legal",
+      "question": "File for emergency injunction now?",
+      "label": "YES",
+      "full_view": {
+        "ContractBreachClaim": {
+          "value": "Alleged",
+          "cost": 2,
+          "signal_strength": "weak/noisy"
+        },
+        "DamagesEstimate": {
+          "value": "$250k",
+          "cost": 2,
+          "signal_strength": "weak/medium"
+        },
+        "TimeToHarm": {
+          "value": "72 hours",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "EvidenceStrength": {
+          "value": "Mixed emails",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "IrreparableHarm": {
+          "value": "Customer list exposure likely",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "OpposingCounsel": {
+          "value": "Aggressive",
+          "cost": 1,
+          "signal_strength": "misleading",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "There is an alleged contract breach with estimated damages around $250k, which is meaningful but not always urgent.",
+        "A2": "The timeline to potential harm is short\u2014about 72 hours\u2014raising urgency.",
+        "A3": "Evidence includes mixed email trails that could be argued both ways.",
+        "A4": "There is a high risk of irreparable harm: customer list exposure appears likely if no action is taken.",
+        "A5": "Opposing counsel is known to be aggressive, which can be distracting but isn\u2019t itself decisive.",
+        "A6": "Injunction decisions should prioritize irreparable harm over damages size alone.",
+        "A7": "Given time pressure, filing now may preserve remedies.",
+        "A8": "Even with mixed evidence, irreparable harm can justify emergency action.",
+        "A9": "The cost of filing may be lower than exposure risk.",
+        "A10": "Proceed with injunction triage given decisive harm signal."
+      },
+      "notes": "Misleading opponent aggressiveness vs decisive irreparable-harm and time-to-harm.",
+      "agents_structured": {
+        "A1": {
+          "ContractBreachClaim": "Alleged",
+          "DamagesEstimate": "$250k"
+        },
+        "A2": {
+          "TimeToHarm": "72 hours"
+        },
+        "A3": {
+          "EvidenceStrength": "Mixed emails"
+        },
+        "A4": {
+          "IrreparableHarm": "Customer list exposure likely"
+        },
+        "A5": {
+          "OpposingCounsel": "Aggressive"
+        },
+        "A6": {
+          "IrreparableHarm": "Customer list exposure likely",
+          "DamagesEstimate": "$250k"
+        },
+        "A7": {
+          "TimeToHarm": "72 hours",
+          "IrreparableHarm": "Customer list exposure likely"
+        },
+        "A8": {
+          "EvidenceStrength": "Mixed emails",
+          "IrreparableHarm": "Customer list exposure likely"
+        },
+        "A9": {
+          "IrreparableHarm": "Customer list exposure likely",
+          "TimeToHarm": "72 hours"
+        },
+        "A10": {
+          "IrreparableHarm": "Customer list exposure likely",
+          "TimeToHarm": "72 hours",
+          "EvidenceStrength": "Mixed emails"
+        }
+      }
+    },
+    {
+      "id": "S18_cib_enforcement",
+      "domain": "platform_integrity",
+      "question": "Enforce takedown for coordinated inauthentic behavior?",
+      "label": "YES",
+      "full_view": {
+        "NewAccounts": {
+          "value": 1200,
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "PostingRate": {
+          "value": "High burst",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "LanguageSimilarity": {
+          "value": "Very high",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "IPOverlap": {
+          "value": "Moderate",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "PaymentInstrument": {
+          "value": "Same card across 300 accounts",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "BenignEvent": {
+          "value": "Major sports event today",
+          "cost": 2,
+          "signal_strength": "misleading",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "There are about 1,200 new accounts created with a high burst posting rate.",
+        "A2": "Text content shows very high language similarity across accounts, suggesting automation.",
+        "A3": "IP overlap is moderate, which is suggestive but not definitive due to VPNs.",
+        "A4": "A single payment card appears across about 300 accounts, a decisive coordination signal.",
+        "A5": "There\u2019s a major sports event today that could explain unusual activity, but it doesn\u2019t explain shared payment instruments.",
+        "A6": "Given cross-account payment linkage, enforcement should proceed.",
+        "A7": "Language similarity adds further evidence beyond the decisive payment link.",
+        "A8": "The event confound is tempting but insufficient.",
+        "A9": "Takedown likely prevents further amplification abuse.",
+        "A10": "Proceed with coordinated inauthentic behavior enforcement."
+      },
+      "notes": "Sports-event confound vs decisive shared payment instrument across accounts.",
+      "agents_structured": {
+        "A1": {
+          "NewAccounts": 1200,
+          "PostingRate": "High burst"
+        },
+        "A2": {
+          "LanguageSimilarity": "Very high"
+        },
+        "A3": {
+          "IPOverlap": "Moderate"
+        },
+        "A4": {
+          "PaymentInstrument": "Same card across 300 accounts"
+        },
+        "A5": {
+          "BenignEvent": "Major sports event today"
+        },
+        "A6": {
+          "PaymentInstrument": "Same card across 300 accounts",
+          "LanguageSimilarity": "Very high"
+        },
+        "A7": {
+          "LanguageSimilarity": "Very high",
+          "PostingRate": "High burst"
+        },
+        "A8": {
+          "BenignEvent": "Major sports event today",
+          "PaymentInstrument": "Same card across 300 accounts"
+        },
+        "A9": {
+          "PaymentInstrument": "Same card across 300 accounts",
+          "NewAccounts": 1200
+        },
+        "A10": {
+          "PaymentInstrument": "Same card across 300 accounts",
+          "LanguageSimilarity": "Very high",
+          "IPOverlap": "Moderate"
+        }
+      }
+    },
+    {
+      "id": "S19_lab_contamination",
+      "domain": "science_ops",
+      "question": "Stop work and initiate contamination protocol?",
+      "label": "YES",
+      "full_view": {
+        "ControlFailure": {
+          "value": "One negative control positive",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "ReagentLot": {
+          "value": "New lot introduced",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "InstrumentCal": {
+          "value": "Recently calibrated",
+          "cost": 2,
+          "signal_strength": "misleading",
+          "tag": "misleading"
+        },
+        "Replicates": {
+          "value": "2/3 replicates inconsistent",
+          "cost": 4,
+          "signal_strength": "strong-ish"
+        },
+        "EnvironmentalSwab": {
+          "value": "Positive at hood",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "Timeline": {
+          "value": "Anomaly began after filter change",
+          "cost": 2,
+          "signal_strength": "medium"
+        }
+      },
+      "agents_prose": {
+        "A1": "A negative control came back positive, which is a strong contamination warning.",
+        "A2": "A new reagent lot was introduced recently, which could be a source of contamination.",
+        "A3": "Instrument was recently calibrated, which feels reassuring but doesn\u2019t prevent contamination.",
+        "A4": "Replicates are inconsistent (2 out of 3 disagree), which is suspicious.",
+        "A5": "Environmental swab testing is positive at the hood, a decisive contamination signal.",
+        "A6": "The anomaly began after a filter change, which could be the introduction point.",
+        "A7": "Given swab positivity, a stop-work and deep clean is justified.",
+        "A8": "Continuing risks invalid downstream results.",
+        "A9": "The cost of pausing is lower than contaminated datasets.",
+        "A10": "Proceed with contamination protocol."
+      },
+      "notes": "Misleading calibration reassurance vs decisive positive environmental swab.",
+      "agents_structured": {
+        "A1": {
+          "ControlFailure": "One negative control positive"
+        },
+        "A2": {
+          "ReagentLot": "New lot introduced"
+        },
+        "A3": {
+          "InstrumentCal": "Recently calibrated"
+        },
+        "A4": {
+          "Replicates": "2/3 replicates inconsistent"
+        },
+        "A5": {
+          "EnvironmentalSwab": "Positive at hood"
+        },
+        "A6": {
+          "Timeline": "Anomaly began after filter change"
+        },
+        "A7": {
+          "EnvironmentalSwab": "Positive at hood",
+          "ControlFailure": "One negative control positive"
+        },
+        "A8": {
+          "ControlFailure": "One negative control positive",
+          "Replicates": "2/3 replicates inconsistent"
+        },
+        "A9": {
+          "EnvironmentalSwab": "Positive at hood",
+          "ReagentLot": "New lot introduced"
+        },
+        "A10": {
+          "EnvironmentalSwab": "Positive at hood",
+          "Timeline": "Anomaly began after filter change",
+          "ReagentLot": "New lot introduced"
+        }
+      }
+    },
+    {
+      "id": "S20_change_rollback",
+      "domain": "it_ops",
+      "question": "Trigger rollback/mitigation immediately?",
+      "label": "YES",
+      "full_view": {
+        "ErrorRate": {
+          "value": "2.5% -> 7.8% post-change",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "Latency": {
+          "value": "+120ms p95",
+          "cost": 3,
+          "signal_strength": "medium"
+        },
+        "DeployScope": {
+          "value": "25% canary",
+          "cost": 2,
+          "signal_strength": "weak"
+        },
+        "UserComplaints": {
+          "value": "Spike in tickets",
+          "cost": 2,
+          "signal_strength": "medium/noisy"
+        },
+        "DBLocks": {
+          "value": "Lock waits 6\u00d7",
+          "cost": 5,
+          "signal_strength": "strong",
+          "tag": "decisive"
+        },
+        "FeatureFlag": {
+          "value": "Flag exists",
+          "cost": 2,
+          "signal_strength": "misleading (easy fix)",
+          "tag": "misleading"
+        },
+        "SecurityPatch": {
+          "value": "Critical patch included",
+          "cost": 4,
+          "signal_strength": "misleading (risk of rollback)",
+          "tag": "misleading"
+        }
+      },
+      "agents_prose": {
+        "A1": "After the change, error rate rose from about 2.5% to 7.8% and p95 latency increased by ~120ms.",
+        "A2": "Only 25% of traffic is in canary, which limits blast radius but still impacts users.",
+        "A3": "Support tickets spiked, though this can be noisy depending on user sentiment.",
+        "A4": "Database lock waits increased about six-fold, a decisive stability signal.",
+        "A5": "A feature flag exists, which tempts a quick mitigation without full rollback.",
+        "A6": "The change includes a critical security patch, making rollback less attractive.",
+        "A7": "DB lock amplification suggests a rollback or immediate mitigation is needed to prevent cascading failure.",
+        "A8": "If the feature flag can disable the culprit path, that may preserve the security patch while reducing load.",
+        "A9": "Given decisive DB locks, action should be immediate rather than waiting.",
+        "A10": "Preferred decision is to disable via flag if it truly isolates the issue; otherwise rollback."
+      },
+      "notes": "Tempting feature-flag/security-patch tradeoff vs decisive DB lock amplification.",
+      "agents_structured": {
+        "A1": {
+          "ErrorRate": "2.5% -> 7.8% post-change",
+          "Latency": "+120ms p95"
+        },
+        "A2": {
+          "DeployScope": "25% canary"
+        },
+        "A3": {
+          "UserComplaints": "Spike in tickets"
+        },
+        "A4": {
+          "DBLocks": "Lock waits 6\u00d7"
+        },
+        "A5": {
+          "FeatureFlag": "Flag exists"
+        },
+        "A6": {
+          "SecurityPatch": "Critical patch included"
+        },
+        "A7": {
+          "DBLocks": "Lock waits 6\u00d7",
+          "ErrorRate": "2.5% -> 7.8% post-change"
+        },
+        "A8": {
+          "FeatureFlag": "Flag exists",
+          "SecurityPatch": "Critical patch included"
+        },
+        "A9": {
+          "DBLocks": "Lock waits 6\u00d7",
+          "Latency": "+120ms p95"
+        },
+        "A10": {
+          "DBLocks": "Lock waits 6\u00d7",
+          "FeatureFlag": "Flag exists",
+          "SecurityPatch": "Critical patch included"
+        }
+      }
+    }
+  ]
+}
