@@ -72,16 +72,22 @@ def build_agent_objects_for_scenario(
 def _build_feature_tags_map(full_view: Dict[str, Any]) -> Dict[str, List[str]]:
     tags_map: Dict[str, List[str]] = {}
     for feature_name, feature_data in full_view.items():
+        # handle both "tag" (string) and "tags" (list)
+        tag = feature_data.get("tag")
         tags = feature_data.get("tags", []) or []
-        if feature_name:
-            tags_map[feature_name] = tags
+        if tag:
+            tags = [tag]
+        tags_map[feature_name] = tags
     return tags_map
 
 
 def _extract_tagged_features(full_view: Dict[str, Any], tag: str) -> List[str]:
     result = []
     for feature_name, feature_data in full_view.items():
-        if tag in (feature_data.get("tags", []) or []):
+        # handle both "tag" (string) and "tags" (list)
+        feature_tag = feature_data.get("tag", "")
+        feature_tags = feature_data.get("tags", []) or []
+        if feature_tag == tag or tag in feature_tags:
             result.append(feature_name)
     return result
 
