@@ -1,0 +1,44 @@
+================================================
+Job ID      : 40122427
+Node        : g141606
+GPUs        : 0
+Start time  : Sun Mar 29 06:35:21 PM EDT 2026
+Model       : /work/users/a/d/adinara/models/Qwen3-14B
+Project dir : /work/users/a/d/adinara/llm_delib/phase1
+================================================
+
+[1/3] Launching SGLang server...
+SGLang PID: 316711
+
+[2/3] Waiting for SGLang server to be ready...
+  ...still waiting (0s elapsed)
+  ...still waiting (10s elapsed)
+  ...still waiting (20s elapsed)
+  ...still waiting (30s elapsed)
+  ...still waiting (40s elapsed)
+  ...still waiting (50s elapsed)
+  ...still waiting (60s elapsed)
+  ...still waiting (70s elapsed)
+  ...still waiting (80s elapsed)
+  ...still waiting (90s elapsed)
+  ...still waiting (100s elapsed)
+  ...still waiting (110s elapsed)
+  ...still waiting (120s elapsed)
+  ...still waiting (130s elapsed)
+  ...still waiting (140s elapsed)
+  ...still waiting (150s elapsed)
+  ...still waiting (160s elapsed)
+  ...still waiting (170s elapsed)
+  ...still waiting (180s elapsed)
+  ...still waiting (190s elapsed)
+  ...still waiting (200s elapsed)
+  ...still waiting (210s elapsed)
+  ...still waiting (220s elapsed)
+  ...still waiting (230s elapsed)
+  ...still waiting (240s elapsed)
+  ...still waiting (250s elapsed)
+  ...still waiting (260s elapsed)
+  ...still waiting (270s elapsed)
+  ...still waiting (280s elapsed)
+  ...still waiting (290s elapsed)
+ERROR: SGLang server did not start within 300s. Exiting.

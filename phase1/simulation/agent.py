@@ -171,8 +171,12 @@ class Agent:
                 }
             )
 
+
     def _parse_json_response(self, raw_text: str) -> Dict[str, Any]:
         cleaned = raw_text.strip()
+        # Strip Qwen3 thinking blocks
+        if "<think>" in cleaned and "</think>" in cleaned:
+            cleaned = cleaned.split("</think>")[-1].strip()
         cleaned = cleaned.replace("```json", "").replace("```", "").strip()
 
         try:

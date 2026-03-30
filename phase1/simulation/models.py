@@ -90,6 +90,37 @@ def claude_model_fn(model, system_prompt, user_prompt, temperature):
     return response.content[0].text.strip()
 
 
+def sglang_model_fn(model, system_prompt, user_prompt, temperature):
+    api_base = os.getenv("SGLANG_API_BASE", "http://localhost:30000")
+    
+    client = OpenAI(
+        base_url=f"{api_base}/v1",
+        api_key="not-needed"
+    )
+
+    response = client.chat.completions.create(
+        model=model,
+        temperature=temperature,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+        max_tokens=512,
+    )
+
+    return response.choices[0].message.content.strip()
+
+
+MODEL_REGISTRY: Dict[str, Callable] = {
+    "gpt":      gpt_model_fn,
+    "llama":    open_model_fn,
+    "mistral":  open_model_fn,
+    "qwen":     open_model_fn,
+    "deepseek": open_model_fn,
+    "claude":   claude_model_fn,
+    "sglang":   sglang_model_fn,   # add this
+}
+
 # -----------------------
 # Registry (IMPORTANT)
 # -----------------------
