@@ -106,20 +106,11 @@ def sglang_model_fn(model, system_prompt, user_prompt, temperature):
             {"role": "user", "content": user_prompt},
         ],
         max_tokens=512,
+        extra_body={"chat_template_kwargs": {"enable_thinking": False}},
     )
 
     return response.choices[0].message.content.strip()
 
-
-MODEL_REGISTRY: Dict[str, Callable] = {
-    "gpt":      gpt_model_fn,
-    "llama":    open_model_fn,
-    "mistral":  open_model_fn,
-    "qwen":     open_model_fn,
-    "deepseek": open_model_fn,
-    "claude":   claude_model_fn,
-    "sglang":   sglang_model_fn,   # add this
-}
 
 # -----------------------
 # Registry (IMPORTANT)
@@ -131,4 +122,5 @@ MODEL_REGISTRY: Dict[str, Callable] = {
     "qwen": open_model_fn,
     "deepseek": open_model_fn,
     "claude": claude_model_fn,
+    "sglang":   sglang_model_fn,
 }

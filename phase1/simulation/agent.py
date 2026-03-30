@@ -173,6 +173,7 @@ class Agent:
 
 
     def _parse_json_response(self, raw_text: str) -> Dict[str, Any]:
+        # print(f"[RAW RESPONSE]: {raw_text[:500]}")
         cleaned = raw_text.strip()
         # Strip Qwen3 thinking blocks
         if "<think>" in cleaned and "</think>" in cleaned:
