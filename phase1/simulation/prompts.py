@@ -120,9 +120,12 @@ def build_final_vote_prompt(
         Conversation history:
         {history_block}
 
+        The question has a yes/no answer. You MUST map your conclusion to exactly
+        "Yes" or "No" — no other words, synonyms, or phrases are permitted.
+
         Return ONLY valid JSON with exactly these fields:
         {{
-        "answer": "your final answer",
+        "answer": "Yes or No ONLY",
         "confidence": 0.0,
         "reasoning_summary": "brief explanation"
         }}

@@ -55,3 +55,6 @@ summary.json
 # Model cache (if stored locally)
 huggingface_cache/
 .cache/
+
+/logs/
+delib_*
