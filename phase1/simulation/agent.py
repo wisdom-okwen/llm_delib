@@ -7,6 +7,27 @@ from typing import Any, Dict, List, Optional
 from simulation.prompts import build_system_prompt, build_user_prompt, build_final_vote_prompt
 from simulation.models import MODEL_REGISTRY
 
+# The clamp_binary function is a safety net to ensure that any free-text answer from the model
+# is categorized into "Yes" or "No" for the final vote. The prompt instructs the model to return
+# only "Yes" or "No", but this function catches any variations or slips.
+
+def _clamp_binary(answer: str) -> str:
+    """Force free-text answers to Yes/No. Prompt fix handles most cases;
+    this catches whatever slips through."""
+    low = answer.lower()
+    if low in {"yes", "y", "true", "approve", "accept", "confirmed", "divert",
+               "trigger", "enforce", "recall", "escalate", "hire", "admit"}:
+        return "Yes"
+    if low in {"no", "n", "false", "reject", "decline", "denied", "pass",
+               "do not", "defer", "suppress", "hold"}:
+        return "No"
+    # Substring fallback for multi-word answers like "Reject the current settlement offer"
+    if any(w in low for w in ["reject", "do not", "decline", "deny", "suppress"]):
+        return "No"
+    if any(w in low for w in ["approve", "accept", "divert", "trigger", "enforce",
+                               "recall", "escalate", "label as"]):
+        return "Yes"
+    return answer  # give up — will show in check_non_binary output
 
 @dataclass
 class Feature:
@@ -132,7 +153,7 @@ class Agent:
         raw_text = self._call_model(system_prompt=system_prompt, user_prompt=user_prompt)
         parsed = self._parse_json_response(raw_text)
 
-        answer = str(parsed.get("answer", "UNKNOWN")).strip()
+        answer = _clamp_binary(str(parsed.get("answer", "UNKNOWN")).strip())
         confidence = parsed.get("confidence", None)
         reasoning_summary = str(parsed.get("reasoning_summary", "")).strip()
 
