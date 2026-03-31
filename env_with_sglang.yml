@@ -1,4 +1,4 @@
-name: llm_delib
+name: llm_delib_sglang
 channels:
   - conda-forge
   - defaults

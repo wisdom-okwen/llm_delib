@@ -1,3 +1,7 @@
+#-----------------
+# Run with script
+# ./run_phase1.sh 
+#-----------------
 from simulation.runner import run_from_config
 from analysis.summarize_runs import summarize_run_directory
 from simulation.utils import load_yaml

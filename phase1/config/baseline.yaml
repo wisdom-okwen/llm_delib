@@ -5,10 +5,10 @@ experiment:
   num_repeats_per_scenario: 1
 
 data:
-  scenario_path: data/raw/deliberation_scenarios_v0_3.json
+  scenario_path: data/raw/scenarios.json
   use_private_view: agents_structured
   scenario_ids: null
-  max_scenarios: 2
+  max_scenarios: null
 
 # model:
 #   model_type: llama
@@ -60,7 +60,7 @@ logging:
   save_agent_actions: true
   save_final_votes: true
   save_prompt_text: false
-  output_dir: data/runs/phase1_baseline_uniform_rewards_sglang_qwen3_14b
+  output_dir: data/runs/phase1_baseline_uniform_rewards_qwen3_14b
 
 analysis:
   compute_accuracy: true
@@ -71,4 +71,4 @@ analysis:
   compute_cost_by_agent: true
   export_run_level_csv: true
   export_summary_json: true
-  output_dir: data/processed/phase1_baseline_uniform_rewards_sglang_qwen3_14b
+  output_dir: data/processed/phase1_baseline_uniform_rewards_qwen3_14b
