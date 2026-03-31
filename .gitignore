@@ -41,12 +41,11 @@ ENV/
 Thumbs.db
 
 # Project specific
-data/runs/
-data/logs/
-data/processed/
-*.json
-conversations.csv
-summary.json
+# data/runs/
+# data/logs/
+# data/processed/
+# conversations.csv
+# summary.json
 
 # Jupyter/IPython
 .ipynb_checkpoints/
