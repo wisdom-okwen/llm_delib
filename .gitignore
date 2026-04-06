@@ -41,9 +41,10 @@ ENV/
 Thumbs.db
 
 # Project specific
-# data/runs/
-# data/logs/
-# data/processed/
+phase1/data/raw/
+phase1/data/runs/
+phase1/data/logs/
+phase1/data/processed/
 # conversations.csv
 # summary.json
 
