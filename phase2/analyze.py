@@ -51,7 +51,7 @@ def _bootstrap_ci(values, n_boot=2000, alpha=0.05):
 
 
 def plot_accuracy_comparison(by_condition, output_dir):
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(10, 5))
     conditions = list(by_condition.keys())
     accs, errs = [], []
     for cond in conditions:
@@ -60,53 +60,50 @@ def plot_accuracy_comparison(by_condition, output_dir):
         accs.append(mean)
         errs.append([mean - lo, hi - mean])
 
+    x = np.arange(len(conditions))
     bar_colors = [COLORS.get(c, "#888") for c in conditions]
-    bars = ax.bar(conditions, accs, color=bar_colors, edgecolor="white", linewidth=1.5)
-    ax.errorbar(conditions, accs, yerr=np.array(errs).T, fmt="none", color="black", capsize=5)
+    bars = ax.bar(x, accs, color=bar_colors, edgecolor="white", linewidth=1.5)
+    ax.errorbar(x, accs, yerr=np.array(errs).T, fmt="none", color="black", capsize=5)
     ax.set_ylabel("Group Accuracy")
     ax.set_title("Group Decision Accuracy by Incentive Structure")
-    ax.set_ylim(0, 1.05)
+    ax.set_ylim(0, 1.15)
+    ax.set_xticks(x)
+    ax.set_xticklabels(conditions, rotation=45, ha="right", fontsize=9)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     for bar, acc in zip(bars, accs):
         ax.text(bar.get_x() + bar.get_width()/2, bar.get_height()+0.03,
-                f"{acc:.2f}", ha="center", fontsize=11, fontweight="bold")
+                f"{acc:.2f}", ha="center", fontsize=10, fontweight="bold")
     plt.tight_layout()
     plt.savefig(output_dir / "accuracy_comparison.png", dpi=150)
     plt.close()
 
 
 def plot_decisive_surfacing(by_condition, output_dir):
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(10, 5))
     conditions = list(by_condition.keys())
     rates = [np.mean([r["decisive_surfacing_rate"] for r in by_condition[c]]) for c in conditions]
+    x = np.arange(len(conditions))
     bar_colors = [COLORS.get(c, "#888") for c in conditions]
-    bars = ax.bar(conditions, rates, color=bar_colors, edgecolor="white", linewidth=1.5)
+    bars = ax.bar(x, rates, color=bar_colors, edgecolor="white", linewidth=1.5)
     ax.set_ylabel("Decisive Feature Surfacing Rate")
     ax.set_title("How Often Decisive Features Are Disclosed")
-    ax.set_ylim(0, 1.05)
+    ax.set_ylim(0, 1.15)
+    ax.set_xticks(x)
+    ax.set_xticklabels(conditions, rotation=45, ha="right", fontsize=9)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     for bar, rate in zip(bars, rates):
         ax.text(bar.get_x()+bar.get_width()/2, bar.get_height()+0.03,
-                f"{rate:.2f}", ha="center", fontsize=11, fontweight="bold")
+                f"{rate:.2f}", ha="center", fontsize=10, fontweight="bold")
     plt.tight_layout()
     plt.savefig(output_dir / "decisive_surfacing.png", dpi=150)
     plt.close()
 
 
 def plot_decisive_holder_calibration(by_condition, output_dir, scenarios_path=None):
-    """Key paper figure: decisive-feature holders' disclosure rate by condition.
-
-    Uses precise per-feature accounting when scenario metadata is available:
-      DH% = fraction of decisive features disclosed by agents who hold them
-      NH% = fraction of non-decisive features disclosed by agents who hold them
-    Falls back to an agent-level proxy (any disclosure by decisive holder) when
-    scenario metadata is absent.
-    """
-    # Load per-agent decisive/total feature sets from scenario metadata
-    decisive_held: dict[str, dict[str, set]] = {}   # sid -> {aid -> {decisive_feat_names}}
-    all_held: dict[str, dict[str, set]] = {}         # sid -> {aid -> {all_feat_names}}
+    decisive_held: dict[str, dict[str, set]] = {}
+    all_held: dict[str, dict[str, set]] = {}
     if scenarios_path:
         try:
             with open(scenarios_path) as f:
@@ -139,7 +136,6 @@ def plot_decisive_holder_calibration(by_condition, output_dir, scenarios_path=No
             am = all_held.get(sid)
 
             if dm and am:
-                # Precise: count at the individual decisive-feature level
                 for aid, feats_disclosed in r.get("agent_disclosures", {}).items():
                     disc_set = set(feats_disclosed)
                     for df in dm.get(aid, set()):
@@ -151,7 +147,6 @@ def plot_decisive_holder_calibration(by_condition, output_dir, scenarios_path=No
                         if nf in disc_set:
                             nh_disc += 1
             else:
-                # Fallback proxy: did decisive-feature holder disclose anything?
                 decisive_holders = set(r.get("agents_holding_decisive", []))
                 for aid, feats in r.get("agent_disclosures", {}).items():
                     if aid in decisive_holders:
@@ -166,32 +161,46 @@ def plot_decisive_holder_calibration(by_condition, output_dir, scenarios_path=No
         dh_rates.append(dh_disc / dh_total if dh_total > 0 else 0.0)
         nh_rates.append(nh_disc / nh_total if nh_total > 0 else 0.0)
 
-    fig, ax = plt.subplots(figsize=(9, 5))
+    fig, ax = plt.subplots(figsize=(11, 5))
     x = np.arange(len(conditions))
     w = 0.35
-    bars1 = ax.bar(x - w/2, dh_rates, w, label="Decisive-feature holders (DH%)",
+    bars1 = ax.bar(x - w/2, dh_rates, w,
                    color=[COLORS.get(c, "#888") for c in conditions], edgecolor="white")
-    bars2 = ax.bar(x + w/2, nh_rates, w, label="Non-decisive holders (NH%)",
+    bars2 = ax.bar(x + w/2, nh_rates, w,
                    color=[COLORS.get(c, "#888") for c in conditions], alpha=0.4, edgecolor="white")
 
     metric_label = ("Decisive Feature Disclosure Rate" if decisive_held
                     else "Disclosure Rate — any feature (proxy; no scenario metadata)")
     ax.set_ylabel(metric_label)
-    ax.set_xlabel("Incentive Structure")
     ax.set_title("Decisive-Feature Holder Disclosure Rate by Condition")
     ax.set_xticks(x)
-    ax.set_xticklabels(conditions)
-    ax.set_ylim(0, 1.1)
-    ax.legend()
+    ax.set_xticklabels(conditions, rotation=45, ha="right", fontsize=9)
+    ax.set_ylim(0, 1.2)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
 
+    # Two-tier legend: solid/faded pattern for DH%/NH%, color patches for conditions
+    import matplotlib.patches as mpatches
+    pattern_handles = [
+        mpatches.Patch(facecolor="gray", edgecolor="white", label="Decisive-feature holders (DH%)"),
+        mpatches.Patch(facecolor="gray", edgecolor="white", alpha=0.4, label="Non-decisive holders (NH%)"),
+    ]
+    cond_handles = [
+        mpatches.Patch(facecolor=COLORS.get(c, "#888"), edgecolor="white", label=c)
+        for c in conditions
+    ]
+    legend1 = ax.legend(handles=pattern_handles, loc="upper left", fontsize=8,
+                        title="Disclosure type", title_fontsize=8, framealpha=0.85)
+    ax.add_artist(legend1)
+    ax.legend(handles=cond_handles, loc="upper right", fontsize=7,
+              title="Condition", title_fontsize=8, framealpha=0.85, ncol=2)
+
     for bar, rate in zip(bars1, dh_rates):
         ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.02,
-                f"{rate:.2f}", ha="center", fontsize=9, fontweight="bold")
+                f"{rate:.2f}", ha="center", fontsize=8, fontweight="bold")
     for bar, rate in zip(bars2, nh_rates):
         ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.02,
-                f"{rate:.2f}", ha="center", fontsize=9)
+                f"{rate:.2f}", ha="center", fontsize=8)
 
     plt.tight_layout()
     plt.savefig(output_dir / "decisive_holder_calibration.png", dpi=150)
@@ -199,7 +208,6 @@ def plot_decisive_holder_calibration(by_condition, output_dir, scenarios_path=No
 
 
 def plot_surfacing_by_cost_per_condition(by_condition, scenarios_path, output_dir):
-    """Surfacing rate stratified by feature cost, per condition."""
     try:
         with open(scenarios_path) as f:
             raw = json.load(f)
@@ -209,7 +217,7 @@ def plot_surfacing_by_cost_per_condition(by_condition, scenarios_path, output_di
                 k: v.get("cost", 1) for k, v in s.get("full_view", {}).items()
             }
     except Exception:
-        return  # skip if no scenario data available
+        return
 
     fig, ax = plt.subplots(figsize=(9, 5))
     conditions = list(by_condition.keys())
@@ -237,7 +245,7 @@ def plot_surfacing_by_cost_per_condition(by_condition, scenarios_path, output_di
     ax.set_title("Feature Surfacing Rate by Cost (per Condition)")
     ax.set_xticks(sorted(all_costs))
     ax.set_ylim(0, 1.05)
-    ax.legend()
+    ax.legend(fontsize=8, loc="best", framealpha=0.85)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     plt.tight_layout()
@@ -256,6 +264,7 @@ def plot_cost_frontiers(by_condition, output_dir):
         (axes[1], "total_disclosure_cost", "Mean Disclosure Cost",
          "Accuracy vs Disclosure Cost"),
     ]:
+        handles = []
         for cond in conditions:
             results = by_condition[cond]
             x_vals = [r.get(key, r.get("total_tokens", 0)) for r in results]
@@ -263,18 +272,19 @@ def plot_cost_frontiers(by_condition, output_dir):
             x_mean, x_lo, x_hi = _bootstrap_ci(x_vals)
             y_mean, y_lo, y_hi = _bootstrap_ci(y_vals)
             color = COLORS.get(cond, "#888")
-            ax.errorbar(
+            handle = ax.errorbar(
                 x_mean, y_mean,
                 xerr=[[x_mean - x_lo], [x_hi - x_mean]],
                 yerr=[[y_mean - y_lo], [y_hi - y_mean]],
-                fmt="o", markersize=10, color=color,
+                fmt="o", markersize=10, color=color, label=cond,
                 capsize=5, capthick=1.5, linewidth=1.5, zorder=5,
             )
-            ax.annotate(cond, (x_mean, y_mean),
-                        textcoords="offset points", xytext=(8, 4), fontsize=10)
+            handles.append(handle)
         ax.set_xlabel(xlabel)
         ax.set_ylabel("Accuracy")
         ax.set_title(title)
+        ax.legend(handles=handles, labels=conditions,
+                  fontsize=8, loc="lower right", framealpha=0.85)
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
 
@@ -285,28 +295,34 @@ def plot_cost_frontiers(by_condition, output_dir):
 
 def plot_misleading_influence(by_condition, output_dir):
     conditions = list(by_condition.keys())
-    fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+    x = np.arange(len(conditions))
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
     for ax, key, title, ylabel in [
         (axes[0], "misleading_before_wrong", "Misleading + Wrong", "Rate"),
         (axes[1], "misleading_preceded_decisive", "Misleading Before Decisive", "Rate"),
     ]:
         rates = [np.mean([float(r.get(key, False)) for r in by_condition[c]]) for c in conditions]
         bar_colors = [COLORS.get(c, "#888") for c in conditions]
-        bars = ax.bar(conditions, rates, color=bar_colors, edgecolor="white", linewidth=1.5)
-        ax.set_ylabel(ylabel); ax.set_title(title)
+        bars = ax.bar(x, rates, color=bar_colors, edgecolor="white", linewidth=1.5)
+        ax.set_ylabel(ylabel)
+        ax.set_title(title)
+        ax.set_xticks(x)
+        ax.set_xticklabels(conditions, rotation=45, ha="right", fontsize=9)
         ax.set_ylim(0, max(rates)*1.3+0.05 if max(rates) > 0 else 0.2)
-        ax.spines["top"].set_visible(False); ax.spines["right"].set_visible(False)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
         for bar, rate in zip(bars, rates):
             ax.text(bar.get_x()+bar.get_width()/2, bar.get_height()+0.01,
-                    f"{rate:.2f}", ha="center", fontsize=11, fontweight="bold")
+                    f"{rate:.2f}", ha="center", fontsize=10, fontweight="bold")
     plt.tight_layout()
     plt.savefig(output_dir / "misleading_influence.png", dpi=150)
     plt.close()
 
 
 def plot_free_riding(by_condition, output_dir):
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(10, 5))
     conditions = list(by_condition.keys())
+    x = np.arange(len(conditions))
     rates = []
     for cond in conditions:
         total = sum(len(r.get("agent_disclosures", {})) for r in by_condition[cond])
@@ -314,13 +330,17 @@ def plot_free_riding(by_condition, output_dir):
                    for f in r.get("agent_disclosures", {}).values() if len(f) == 0)
         rates.append(free / total if total > 0 else 0)
     bar_colors = [COLORS.get(c, "#888") for c in conditions]
-    bars = ax.bar(conditions, rates, color=bar_colors, edgecolor="white", linewidth=1.5)
-    ax.set_ylabel("Free-Riding Rate"); ax.set_title("Agents Disclosing No Features")
-    ax.set_ylim(0, max(rates)*1.3+0.05)
-    ax.spines["top"].set_visible(False); ax.spines["right"].set_visible(False)
+    bars = ax.bar(x, rates, color=bar_colors, edgecolor="white", linewidth=1.5)
+    ax.set_ylabel("Free-Riding Rate")
+    ax.set_title("Agents Disclosing No Features")
+    ax.set_xticks(x)
+    ax.set_xticklabels(conditions, rotation=45, ha="right", fontsize=9)
+    ax.set_ylim(0, max(rates)*1.3+0.05 if max(rates) > 0 else 0.2)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
     for bar, rate in zip(bars, rates):
         ax.text(bar.get_x()+bar.get_width()/2, bar.get_height()+0.01,
-                f"{rate:.2f}", ha="center", fontsize=11, fontweight="bold")
+                f"{rate:.2f}", ha="center", fontsize=10, fontweight="bold")
     plt.tight_layout()
     plt.savefig(output_dir / "free_riding.png", dpi=150)
     plt.close()
@@ -346,7 +366,8 @@ def plot_moderator_trajectory(by_condition, output_dir):
                 color=COLORS.get(cond, "#888"), linewidth=2)
     ax.axhline(y=0, color="gray", linestyle="--", alpha=0.5)
     ax.set_xlabel("Round"); ax.set_ylabel("Signed Confidence (+ = correct)")
-    ax.set_title("Moderator Confidence Trajectory"); ax.legend()
+    ax.set_title("Moderator Confidence Trajectory")
+    ax.legend(fontsize=8, loc="best", framealpha=0.85)
     ax.spines["top"].set_visible(False); ax.spines["right"].set_visible(False)
     plt.tight_layout()
     plt.savefig(output_dir / "moderator_trajectory.png", dpi=150)
@@ -354,12 +375,6 @@ def plot_moderator_trajectory(by_condition, output_dir):
 
 
 def plot_early_disclosure(by_condition, output_dir):
-    """First-mover analysis: in which round do decisive-feature holders first disclose?
-
-    Under contribution incentive, rational agents should surface decisive features
-    earlier (before others cover the same ground). This plot shows the distribution
-    of first-disclosure round per condition.
-    """
     fig, ax = plt.subplots(figsize=(9, 5))
     conditions = list(by_condition.keys())
     condition_first_rounds: dict[str, list[int]] = {}
@@ -385,11 +400,13 @@ def plot_early_disclosure(by_condition, output_dir):
         condition_first_rounds[cond] = first_rounds
 
     data = [condition_first_rounds.get(c, [0]) for c in conditions]
-    bp = ax.boxplot(data, labels=conditions, patch_artist=True, notch=False)
+    bp = ax.boxplot(data, patch_artist=True, notch=False)
     for patch, cond in zip(bp["boxes"], conditions):
         patch.set_facecolor(COLORS.get(cond, "#888"))
         patch.set_alpha(0.7)
 
+    ax.set_xticks(range(1, len(conditions) + 1))
+    ax.set_xticklabels(conditions, rotation=45, ha="right", fontsize=9)
     ax.set_ylabel("First Round a Decisive-Feature Holder Disclosed")
     ax.set_title("First-Mover Analysis: When Do Decisive-Feature Holders Disclose?\n"
                  "(Lower = earlier; contribution incentive should pull disclosure earlier)")
@@ -401,12 +418,6 @@ def plot_early_disclosure(by_condition, output_dir):
 
 
 def plot_speaking_order_effects(by_condition, scenarios_path, output_dir):
-    """Decisive disclosure rate by speaking position (1-indexed within each round).
-
-    Tests whether first-mover advantage exists: do earlier speakers disclose
-    decisive features more often? Under contribution incentives, rational agents
-    should surface decisive info as early as possible to claim exclusive credit.
-    """
     decisive_by_scenario: dict[str, set] = {}
     try:
         with open(scenarios_path) as f:
@@ -451,7 +462,7 @@ def plot_speaking_order_effects(by_condition, scenarios_path, output_dir):
     if max_pos > 0:
         ax.set_xticks(range(1, max_pos + 1))
     ax.set_ylim(0, 1.05)
-    ax.legend()
+    ax.legend(fontsize=8, loc="best", framealpha=0.85)
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     plt.tight_layout()
@@ -460,12 +471,6 @@ def plot_speaking_order_effects(by_condition, scenarios_path, output_dir):
 
 
 def plot_stratified_analysis(by_condition, scenarios_path, output_dir):
-    """Accuracy and DSR grouped by decisive_cost_tier (low/medium/high).
-
-    The decisive_cost_tier × condition interaction is the key predicted
-    finding: incentive effects should be strongest in the high-cost tier,
-    where the free-rider problem is most acute.
-    """
     scenario_tier: dict[str, str] = {}
     try:
         with open(scenarios_path) as f:
@@ -539,18 +544,17 @@ def plot_stratified_analysis(by_condition, scenarios_path, output_dir):
 def plot_variant_comparison(results_dir, output_dir):
     """Compare base vs variant-A (information structure) vs variant-B (cost) across conditions.
 
-    If result dicts contain a 'variant_type' field, group by it and plot per-variant
-    accuracy and decisive surfacing rate side by side for each incentive condition.
+    Groups results by variant_type and plots per-variant accuracy and decisive surfacing
+    rate side by side for each incentive condition, using within-triplet matched comparisons.
     Skips silently if no variant_type data is found in any result.
     """
     by_condition = load_results(results_dir) if isinstance(results_dir, Path) else results_dir
 
-    # Detect whether variant_type data exists
     has_variant_data = any(
         r.get("variant_type") for results in by_condition.values() for r in results
     )
     if not has_variant_data:
-        return  # no variant_type field in results; skip
+        return
 
     variant_types = ["base", "A_information_structure", "B_cost"]
     conditions = list(by_condition.keys())
@@ -608,11 +612,6 @@ def plot_variant_comparison(results_dir, output_dir):
 
 
 def compute_significance(by_condition):
-    """Paired Wilcoxon signed-rank tests on scenario-level aggregated outcomes.
-
-    Aggregates per-scenario means across runs, then tests matched pairs.
-    Correct for the matched design: all conditions see the same 120 scenarios.
-    """
     def _scenario_agg(results, key_fn):
         groups: dict[str, list] = defaultdict(list)
         for r in results:
@@ -694,7 +693,6 @@ def main():
     print(f"Conditions: {list(by_condition.keys())}")
     print(f"Counts: { {c: len(r) for c, r in by_condition.items()} }")
 
-    # Scenario balance check
     first_results = next(iter(by_condition.values())) if by_condition else []
     if first_results:
         seen: dict[str, str] = {}
@@ -722,7 +720,7 @@ def main():
                 parts.append(f"  {metric} p={res['p']:.4f}{sig} (n={res.get('n_pairs','?')})")
             print("  ".join(parts))
         with open(results_dir / "significance.json", "w") as f:
-            json.dump(pw, f, indent=2)
+            json.dump(pw, f, indent=2, cls=_NumpyEncoder)
 
     plot_accuracy_comparison(by_condition, results_dir)
     plot_decisive_surfacing(by_condition, results_dir)
@@ -738,6 +736,16 @@ def main():
     plot_variant_comparison(by_condition, results_dir)
 
     print(f"\nPlots saved to {results_dir}/")
+
+class _NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.bool_):
+            return bool(obj)
+        if isinstance(obj, (np.integer,)):
+            return int(obj)
+        if isinstance(obj, (np.floating,)):
+            return float(obj)
+        return super().default(obj)
 
 
 if __name__ == "__main__":
