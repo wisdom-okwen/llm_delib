@@ -58,3 +58,6 @@ huggingface_cache/
 
 /logs/
 delib_*
+phase2/logs/
+phase2/results/
+phase2/data/

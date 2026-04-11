@@ -12,7 +12,7 @@ from typing import Literal, Optional
 @dataclass
 class Config:
     # ── Dataset ──────────────────────────────────────────────────────────
-    data_path: str = "data/scenarios.json"
+    data_path: str = "data/raw/scenarios.json"
     scenario_ids: Optional[list[str]] = None  # None = run all
 
     # ── LLM backend ─────────────────────────────────────────────────────
@@ -21,6 +21,7 @@ class Config:
     base_url: Optional[str] = None
     temperature: float = 0.0
     max_tokens: int = 512
+    disable_thinking: bool = False   # SGLang/Qwen3: suppress <think> blocks
 
     # ── Deliberation ────────────────────────────────────────────────────
     num_rounds: int = 3
@@ -97,6 +98,22 @@ PRESETS: dict[str, dict] = {
         model="llama3.3:70b", api_key_env="",
         base_url="http://localhost:11434/v1",
         cost_per_1m_input=0.0, cost_per_1m_output=0.0,
+    ),
+    "sglang_qwen3_14b": dict(
+        model="qwen3-14b",
+        api_key_env="",
+        base_url="http://localhost:30000/v1",   # default SGLang port
+        disable_thinking=True,
+        cost_per_1m_input=0.0,
+        cost_per_1m_output=0.0,
+    ),
+	    "vllm": dict(
+        model="qwen3-32b", #qwen3-14b #from start_server_vllm.sl served-model-name
+        api_key_env="",
+        base_url="http://localhost:30000/v1",   # default SGLang port
+        disable_thinking=True,
+        cost_per_1m_input=0.0,
+        cost_per_1m_output=0.0,
     ),
     "ablate_no_rules": dict(ablate_decision_rules=True),
     "neutral_wording": dict(neutral_agent_wording=True),
