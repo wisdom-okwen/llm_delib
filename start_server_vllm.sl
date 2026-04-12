@@ -6,7 +6,6 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:2
-#SBATCH --nodelist=gpu4
 #SBATCH --time=0
 #SBATCH --output=logs/vllm_test_%j.out
 #SBATCH --error=logs/vllm_test_%j.err
@@ -87,7 +86,7 @@ python -m vllm.entrypoints.openai.api_server \
 echo $! > "$PHASE2_DIR/vllm_${SLURM_JOB_ID}.pid"
 echo "vLLM PID: $(cat "$PHASE2_DIR/vllm_${SLURM_JOB_ID}.pid")"
 
-MAX_WAIT=300
+MAX_WAIT=1200 # 20 minutes max wait time for vLLM to start (large llm as qwen3-32b can take several minutes to load)
 ELAPSED=0
 until curl -s -o /dev/null -w "%{http_code}" "http://localhost:$PORT/health" 2>/dev/null | grep -q "^200$"; do
     sleep 10
