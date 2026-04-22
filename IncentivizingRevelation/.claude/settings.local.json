@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \":*)",
+      "Bash(python3 -c \"import config, prompts, agents, incentives, engine, metrics, run, analyze; print\\(''All imports OK''\\)\")",
+      "Bash(python3:*)"
+    ]
+  }
+}
