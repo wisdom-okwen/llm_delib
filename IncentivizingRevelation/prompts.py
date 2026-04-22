@@ -79,6 +79,50 @@ INCENTIVE_DESCRIPTIONS = {
         "is needed. An agent who bids high and shares pivotal information is well "
         "rewarded when the group succeeds."
     ),
+    "hybrid": (
+        "REWARD STRUCTURE: If the group is CORRECT, the reward pool is split "
+        "between two principles: half is divided equally among all agents (like the "
+        "uniform model), and half is split in proportion to your contribution to "
+        "the group's accuracy (like the contribution model). Features that were "
+        "pivotal earn you a larger share of the contribution half; redundant or "
+        "misleading features earn you less. If the group is WRONG, no one earns "
+        "anything. Disclosure costs are always deducted from your share.\n\n"
+        "WHAT THIS MEANS FOR YOUR STRATEGY: You receive a baseline equal share plus "
+        "a contribution bonus. This balances free-riding protection with incentives "
+        "to be strategic. Reveal your strongest, most decision-relevant private "
+        "features to earn the contribution bonus. Weak or redundant disclosures may "
+        "not justify their cost, but you won't be completely penalized either."
+    ),
+    "free_debate": (
+        "REWARD STRUCTURE: Agents freely discuss WITHOUT any disclosure cost. "
+        "If the group is CORRECT, every agent receives an equal share of the reward "
+        "pool. If WRONG, no one earns anything. There is no penalty for disclosure, "
+        "so withholding information carries no benefit.\n\n"
+        "WHAT THIS MEANS FOR YOUR STRATEGY: Since disclosure is free, you should "
+        "share whatever information helps the group reach the correct answer. "
+        "There is no strategic incentive to withhold — the group's success is "
+        "directly your success. Prioritize clarity and helpfulness."
+    ),
+    "forced_sharing": (
+        "REWARD STRUCTURE: You must disclose ALL your private features at once, "
+        "regardless of cost. No selective disclosure is permitted. If the group is "
+        "CORRECT, every agent receives an equal share of the reward pool. If WRONG, "
+        "no one earns anything.\n\n"
+        "WHAT THIS MEANS FOR YOUR STRATEGY: You have no strategic choice — you must "
+        "reveal everything. Focus on communicating your features clearly so the "
+        "group can use them effectively to reach the correct answer."
+    ),
+    "no_comm": (
+        "REWARD STRUCTURE: No communication or disclosure is permitted. Each agent "
+        "decides independently on the facts visible to them. The moderator's role "
+        "is limited to factual summary. If the group's aggregate decision (median or "
+        "majority vote) is CORRECT, every agent receives an equal share. If WRONG, "
+        "no one earns anything.\n\n"
+        "WHAT THIS MEANS FOR YOUR STRATEGY: Since communication is prohibited, you "
+        "cannot strategically disclose or withhold information. Make your individual "
+        "best judgment based on the facts you know. The group's accuracy depends on "
+        "the diversity and quality of your private information."
+    ),
 }
 
 # contribution_oracle agents see the same prompt as contribution (oracle scoring is post-hoc)
