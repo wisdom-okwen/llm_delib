@@ -168,6 +168,11 @@ def run_condition(
     """Run all scenarios under one incentive condition, with parallelism and resume."""
     cfg_cond = Config(**{**cfg.__dict__, "incentive": incentive})
 
+    # Save condition-specific config
+    condition_config_path = output_dir / f"config_{incentive}.json"
+    with open(condition_config_path, "w") as f:
+        json.dump(cfg_cond.__dict__, f, indent=2, default=str)
+
     # Clear stale JSONL when not resuming (prevents duplicate rows on rerun)
     fpath_jsonl = output_dir / f"results_{incentive}.jsonl"
     if not cfg.resume and fpath_jsonl.exists():
