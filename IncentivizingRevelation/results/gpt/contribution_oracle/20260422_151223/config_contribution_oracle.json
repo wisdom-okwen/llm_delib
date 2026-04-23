@@ -9,7 +9,7 @@
   "num_rounds": 3,
   "num_agents": null,
   "shuffle_agent_order": true,
-  "incentive": "uniform",
+  "incentive": "contribution_oracle",
   "contribution_reward_pool": 100.0,
   "hybrid_alpha": 0.5,
   "stake_budget": 20.0,
