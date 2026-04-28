@@ -327,14 +327,59 @@ def main():
         json.dump(cfg.__dict__, f, indent=2, default=str)
 
     # Run conditions
+    # all_results_by_condition = {}
+    # for incentive in args.incentive:
+    #     log.info(f"\n{'='*60}")
+    #     log.info(f"CONDITION: {incentive}")
+    #     log.info(f"{'='*60}")
+    #     all_results_by_condition[incentive] = run_condition(
+    #         incentive, scenarios, cfg, output_dir,
+    #     )
+    # Run conditions
     all_results_by_condition = {}
+    condition_timings = []
+    overall_start = time.time()
+
     for incentive in args.incentive:
         log.info(f"\n{'='*60}")
         log.info(f"CONDITION: {incentive}")
         log.info(f"{'='*60}")
+        cond_start = time.time()
         all_results_by_condition[incentive] = run_condition(
             incentive, scenarios, cfg, output_dir,
         )
+        cond_elapsed = time.time() - cond_start
+        cond_elapsed_str = time.strftime("%H:%M:%S", time.gmtime(cond_elapsed))
+        condition_timings.append((incentive, cond_elapsed_str, cond_elapsed))
+        log.info(f"[{incentive}] Wall time: {cond_elapsed_str}")
+
+    overall_elapsed = time.time() - overall_start
+    overall_elapsed_str = time.strftime("%H:%M:%S", time.gmtime(overall_elapsed))
+
+    # Print timing summary
+    log.info(f"\n{'='*60}")
+    log.info("TIMING SUMMARY")
+    log.info(f"{'='*60}")
+    log.info(f"  {'Condition':<35} {'Elapsed':>10}")
+    log.info(f"  {'-'*45}")
+    for incentive, elapsed_str, _ in condition_timings:
+        log.info(f"  {incentive:<35} {elapsed_str:>10}")
+    log.info(f"  {'-'*45}")
+    log.info(f"  {'TOTAL':<35} {overall_elapsed_str:>10}")
+    log.info(f"{'='*60}")
+
+    # Save timing to file
+    timing_data = {
+        "conditions": [
+            {"incentive": inc, "elapsed": es, "elapsed_seconds": round(secs, 1)}
+            for inc, es, secs in condition_timings
+        ],
+        "total_elapsed": overall_elapsed_str,
+        "total_elapsed_seconds": round(overall_elapsed, 1),
+    }
+    with open(output_dir / "timing.json", "w") as f:
+        json.dump(timing_data, f, indent=2)
+    log.info(f"Timing saved to: {output_dir}/timing.json")
 
     # Compute metrics
     from engine import DeliberationResult
