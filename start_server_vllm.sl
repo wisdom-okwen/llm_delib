@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=vllm_test
+#SBATCH --job-name=llm_delib
 #SBATCH -p a6000
 #SBATCH --qos=gpu_access
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
-#SBATCH --gres=gpu:2
+#SBATCH --cpus-per-task=16
+#SBATCH --gres=gpu:1
 #SBATCH --time=0
 #SBATCH --output=logs/vllm_test_%j.out
 #SBATCH --error=logs/vllm_test_%j.err
@@ -14,9 +14,11 @@
 # CONFIGURATION
 # ─────────────────────────────────────────────
 PHASE2_DIR="$HOME/work/llm_delib/phase2"
+MODEL_PATH="/playpen-shared/adinara/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218"
 # MODEL_PATH="/playpen-shared/adinara/huggingface/hub/models--Qwen--Qwen3-14B/snapshots/40c069824f4251a91eefaf281ebe4c544efd3e18"
-MODEL_PATH="/playpen-shared/adinara/huggingface/hub/models--Qwen--Qwen3-32B/snapshots/9216db5781bf21249d130ec9da846c4624c16137"
-
+# MODEL_PATH="/playpen-shared/adinara/huggingface/hub/models--Qwen--Qwen3-32B/snapshots/9216db5781bf21249d130ec9da846c4624c16137"
+# MODEL_PATH="/playpen-shared/adinara/huggingface/hub/models--Qwen--Qwen2.5-72B/snapshots/efba10c8e54e91e0d9570ab5f7b51a958474d4cb"
+# MODEL_PATH="/playpen-shared/adinara/huggingface/hub/models--Qwen--Qwen2.5-14B/snapshots/97e1e76335b7017d8f67c08a19d103c0504298c9"
 PORT=30000
 CONDA_ENV="delib_vllm"
 NUM_RUNS=5
@@ -27,6 +29,7 @@ NUM_RUNS=5
 #   full  → all 11 conditions
 # ──────────────────────────────────────────────────────────────────────────────
 EXPERIMENT_MODE="full"   # change to "core" for the smaller sweep
+# EXPERIMENT_MODE="select" # for testing with 2 conditions (stake and forced_sharing)
 
 # ─────────────────────────────────────────────
 # SETUP
@@ -78,9 +81,9 @@ python -m vllm.entrypoints.openai.api_server \
     --dtype bfloat16 \
     --gpu-memory-utilization 0.90 \
     --max-model-len 32768 \
-    --served-model-name "qwen3-32b" \
-	--tensor-parallel-size 2 \
-	--disable-custom-all-reduce \
+    --served-model-name "qwen3-8b" \
+    --tensor-parallel-size 1 \
+    --disable-custom-all-reduce \
     > "$VLLM_LOG" 2>&1 &
 
 echo $! > "$PHASE2_DIR/vllm_${SLURM_JOB_ID}.pid"
@@ -112,10 +115,14 @@ CORE_CONDITIONS="uniform contribution contribution_oracle"
 FULL_CONDITIONS="uniform contribution contribution_oracle \
     counterfactual_contribution hybrid stake bid_to_speak \
     forced_sharing free_debate no_comm"
+SELECT_CONDITIONS="stake forced_sharing"
 
 if [ "$EXPERIMENT_MODE" = "core" ]; then
     CONDITIONS="$CORE_CONDITIONS"
     echo "[$(date)] Mode: CORE (3 conditions)"
+elif [ "$EXPERIMENT_MODE" = "select" ]; then
+    CONDITIONS="$SELECT_CONDITIONS"
+    echo "[$(date)] Mode: SELECT (2 conditions)"
 else
     CONDITIONS="$FULL_CONDITIONS"
     echo "[$(date)] Mode: FULL SWEEP (11 conditions)"
@@ -128,6 +135,7 @@ python run.py \
     --num-runs "$NUM_RUNS" \
     --num-agents 10 \
     --max-concurrent 5 \
+    --run-dir results/20260426_qwen3_8B_5runs \
     > "$EXPERIMENT_LOG" 2>&1
 
 STATUS=$?
