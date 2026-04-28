@@ -108,9 +108,9 @@ PRESETS: dict[str, dict] = {
         cost_per_1m_output=0.0,
     ),
 	    "vllm": dict(
-        model="qwen3-32b", #qwen3-14b #from start_server_vllm.sl served-model-name
+        model="qwen3-32b", #qwen3-8b, qwen3-14b, qwen2.5-72b, qwen3-32b, qwen3-14b #from start_server_vllm.sl served-model-name
         api_key_env="",
-        base_url="http://localhost:30000/v1",   # default SGLang port
+        base_url="http://localhost:30001/v1",   # default SGLang port
         disable_thinking=True,
         cost_per_1m_input=0.0,
         cost_per_1m_output=0.0,
