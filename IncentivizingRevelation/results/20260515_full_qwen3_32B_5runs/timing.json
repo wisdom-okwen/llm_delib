@@ -1,0 +1,56 @@
+{
+  "conditions": [
+    {
+      "incentive": "uniform",
+      "elapsed": "07:30:43",
+      "elapsed_seconds": 27043.6
+    },
+    {
+      "incentive": "contribution",
+      "elapsed": "08:24:06",
+      "elapsed_seconds": 30246.4
+    },
+    {
+      "incentive": "contribution_oracle",
+      "elapsed": "08:31:46",
+      "elapsed_seconds": 30706.4
+    },
+    {
+      "incentive": "counterfactual_contribution",
+      "elapsed": "08:28:41",
+      "elapsed_seconds": 30521.7
+    },
+    {
+      "incentive": "hybrid",
+      "elapsed": "08:09:38",
+      "elapsed_seconds": 29379.0
+    },
+    {
+      "incentive": "stake",
+      "elapsed": "07:59:49",
+      "elapsed_seconds": 28789.2
+    },
+    {
+      "incentive": "bid_to_speak",
+      "elapsed": "08:24:37",
+      "elapsed_seconds": 30277.5
+    },
+    {
+      "incentive": "forced_sharing",
+      "elapsed": "00:04:48",
+      "elapsed_seconds": 288.3
+    },
+    {
+      "incentive": "free_debate",
+      "elapsed": "04:16:49",
+      "elapsed_seconds": 15409.8
+    },
+    {
+      "incentive": "no_comm",
+      "elapsed": "00:19:44",
+      "elapsed_seconds": 1184.9
+    }
+  ],
+  "total_elapsed": "14:10:46",
+  "total_elapsed_seconds": 223846.7
+}
