@@ -131,6 +131,9 @@ else
 fi
 
 # shellcheck disable=SC2086
+# later changed run-dir to separate for each of 2 conditions (uniform_no_cost and contribution_no_cost) to run in parallel on 2 gpus:
+# results/20260713_qwen3_8B_5runs_uniform_no_cost
+# results/20260713_qwen3_8B_5runs_contribution_no_cost
 python run.py \
     --preset vllm \
     --incentive $CONDITIONS \
