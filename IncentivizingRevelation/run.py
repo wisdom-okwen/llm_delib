@@ -269,7 +269,8 @@ def main():
     parser.add_argument(
         "--incentive", nargs="+", default=["uniform"],
         choices=[
-            "uniform", "contribution", "contribution_oracle",
+            "uniform", "uniform_no_cost",
+            "contribution", "contribution_no_cost", "contribution_oracle",
             "counterfactual_contribution", "hybrid",
             "stake", "bid_to_speak", "free_debate", "forced_sharing", "no_comm",
         ],
