@@ -22,6 +22,19 @@ INCENTIVE_DESCRIPTIONS = {
         "benefit does not justify the cost. Only disclose features that are "
         "likely to be decision-pivotal."
     ),
+    "uniform_no_cost": (
+        "REWARD STRUCTURE: If the group is CORRECT, every agent receives an "
+        "equal share of the reward pool regardless of individual contribution. "
+        "If the group is WRONG, no one earns anything. Disclosure is free — "
+        "there are no costs deducted for revealing features.\n\n"
+        "WHAT THIS MEANS FOR YOUR STRATEGY: You receive 1/N of the group "
+        "benefit from any disclosure you make, at no personal cost. You should "
+        "therefore disclose a feature whenever it is likely to improve the "
+        "group's decision. Ask yourself: would the group likely be correct "
+        "WITHOUT this feature? If yes, withhold it — your contribution adds "
+        "no marginal value. Only disclose features that are likely to be "
+        "decision-pivotal."
+    ),
     "contribution": (
         "REWARD STRUCTURE: If the group is CORRECT, the reward pool is split "
         "in proportion to decisive contribution. Features that were pivotal — "
@@ -36,6 +49,21 @@ INCENTIVE_DESCRIPTIONS = {
         "already disclosed wastes your disclosure cost with little reward. "
         "Revealing a decisive feature that no one else has, early, maximizes "
         "your credit. Be strategic: lead with your most diagnostic feature."
+    ),
+    "contribution_no_cost": (
+        "REWARD STRUCTURE: If the group is CORRECT, the reward pool is split "
+        "in proportion to decisive contribution. Features that were pivotal — "
+        "they caused the group to reach the correct answer — earn you a LARGER "
+        "share. Redundant or misleading features earn you LESS. Disclosure is "
+        "free — there are no costs deducted for revealing features. If the "
+        "group is WRONG, no one earns anything.\n\n"
+        "WHAT THIS MEANS FOR YOUR STRATEGY: Your payoff is maximized by "
+        "surfacing your strongest, most decision-relevant private features — "
+        "especially before others have already covered that ground. Revealing "
+        "a feature that is weak, noisy, or redundant with what others have "
+        "already disclosed wastes your turn with little reward. Revealing a "
+        "decisive feature that no one else has, early, maximizes your credit. "
+        "Be strategic: lead with your most diagnostic feature."
     ),
     "stake": (
         "REWARD STRUCTURE: Before deliberation, you staked "
@@ -142,6 +170,7 @@ If yes → withhold (you gain nothing by repeating it).
 3. COST-BENEFIT TEST: Expected gain to your payoff from disclosing > \
 disclosure cost? If no → withhold.
 4. ONLY DISCLOSE features that pass all three tests."""
+
 
 DECISION_RULES_BLOCK_NEUTRAL = """\
 
@@ -281,6 +310,28 @@ that is NOT already in the conversation above?
 
 If nothing passes the cost-benefit test, state that briefly and disclose \
 nothing. Do not speak at length merely to participate.
+
+Now write your turn — public message first, then <disclosed> block."""
+
+# No-cost variant: (c) drops cost-benefit framing, (d)→(c) renumbered.
+AGENT_TURN_NO_COST = """\
+=== ROUND {round_num} of {total_rounds} ===
+
+MODERATOR'S CURRENT STANCE: {moderator_stance}
+
+CONVERSATION SO FAR:
+{conversation_history}
+
+BEFORE SPEAKING — work through this silently:
+(a) What decision is the group currently leaning toward, and how confident?
+(b) For each of your undisclosed features: is it decisive, redundant, or weak?
+(c) For each decisive feature: would sharing it now — before others reveal \
+it — improve the group's decision and earn you more credit?
+(d) Is there any new reasoning or domain context worth stating publicly \
+that is NOT already in the conversation above?
+
+If you have no pivotal or novel information to add, state that briefly and \
+disclose nothing. Do not speak at length merely to participate.
 
 Now write your turn — public message first, then <disclosed> block."""
 

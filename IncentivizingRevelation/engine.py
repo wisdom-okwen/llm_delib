@@ -528,7 +528,8 @@ def run_deliberation(
 
     num_agents = len(agent_ids)
     rate_contributions = cfg.incentive in (
-        "contribution", "contribution_oracle", "counterfactual_contribution", "hybrid"
+        "contribution", "contribution_no_cost",
+        "contribution_oracle", "counterfactual_contribution", "hybrid"
     )
 
     # Shuffle speaking order
@@ -710,7 +711,7 @@ def run_deliberation(
     # contribution_oracle   → posthoc ground-truth decisive-feature credit (oracle upper bound)
     # counterfactual_contribution → CMC scores (more principled practical mechanism)
     # hybrid                → moderator-rated contribution (same as contribution)
-    if cfg.incentive == "contribution":
+    if cfg.incentive in ("contribution", "contribution_no_cost"):
         reward_contribution_scores = contribution_scores
     elif cfg.incentive == "contribution_oracle":
         reward_contribution_scores = posthoc_scores
@@ -723,8 +724,10 @@ def run_deliberation(
 
     # Normalize incentive name for payoff dispatch
     _payoff_incentive = cfg.incentive
-    if cfg.incentive in ("contribution_oracle", "counterfactual_contribution"):
+    if cfg.incentive in ("contribution_oracle", "counterfactual_contribution", "contribution_no_cost"):
         _payoff_incentive = "contribution"
+    elif cfg.incentive == "uniform_no_cost":
+        _payoff_incentive = "uniform"
     payoffs = compute_payoffs(
         incentive=_payoff_incentive, agent_ids=agent_ids, is_correct=is_correct,
         reward_pool=cfg.contribution_reward_pool,

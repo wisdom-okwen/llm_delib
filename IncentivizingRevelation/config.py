@@ -30,7 +30,9 @@ class Config:
     # ── Incentive mechanism ─────────────────────────────────────────────
     incentive: Literal[
         "uniform",
+        "uniform_no_cost",             # uniform reward, no disclosure costs (2×2 ablation)
         "contribution",                # proportional to moderator-rated contribution (actual mechanism)
+        "contribution_no_cost",        # contribution reward, no disclosure costs (2×2 ablation)
         "contribution_oracle",         # proportional to posthoc decisive-feature credit (oracle upper bound)
         "counterfactual_contribution", # leave-one-out moderator confidence shift (principled CMC)
         "hybrid",                      # alpha*uniform + (1-alpha)*contribution
@@ -101,4 +103,9 @@ PRESETS: dict[str, dict] = {
     "ablate_no_rules": dict(ablate_decision_rules=True),
     "neutral_wording": dict(neutral_agent_wording=True),
     "full_merged": dict(data_path="data/scenarios_merged.json"),
+    # 2×2 ablation models
+    "gpt4o_mini": dict(
+        model="gpt-4o-mini", api_key_env="OPENAI_API_KEY",
+        cost_per_1m_input=0.15, cost_per_1m_output=0.60,
+    )
 }

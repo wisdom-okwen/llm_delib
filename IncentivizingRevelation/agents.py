@@ -320,11 +320,12 @@ class Agent:
             )
             newly_disclosed[fname] = str(self.features[fname].value)
 
-        # Cost accounting (only genuinely new disclosures)
+        # Cost accounting (only genuinely new disclosures; zeroed for no-cost variants)
         round_cost = 0.0
         for fname in newly_disclosed:
             if fname not in self.disclosed_features:
-                round_cost += self.features[fname].cost
+                if not self.incentive.endswith("_no_cost"):
+                    round_cost += self.features[fname].cost
                 self.disclosed_features[fname] = newly_disclosed[fname]
 
         self.total_disclosure_cost += round_cost
