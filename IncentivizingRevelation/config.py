@@ -21,6 +21,7 @@ class Config:
     base_url: Optional[str] = None
     temperature: float = 0.0
     max_tokens: int = 512
+    disable_thinking: bool = False
 
     # ── Deliberation ────────────────────────────────────────────────────
     num_rounds: int = 3
@@ -107,5 +108,14 @@ PRESETS: dict[str, dict] = {
     "gpt4o_mini": dict(
         model="gpt-4o-mini", api_key_env="OPENAI_API_KEY",
         cost_per_1m_input=0.15, cost_per_1m_output=0.60,
-    )
+    ),
+
+	"vllm": dict(
+        model="qwen3-8b", #qwen3-14b #from start_server_vllm.sl served-model-name
+        api_key_env="",
+        base_url="http://localhost:30000/v1",   # default SGLang port
+        disable_thinking=True,
+        cost_per_1m_input=0.0,
+        cost_per_1m_output=0.0,
+    ),
 }

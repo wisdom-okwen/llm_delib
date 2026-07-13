@@ -57,3 +57,6 @@ huggingface_cache/
 
 /logs/
 delib_*
+
+/IncentivizingRevelation/logs/
+/IncentivizingRevelation/vllm_*

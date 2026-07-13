@@ -72,6 +72,9 @@ class LLM:
         )
         self._max_retries = 5
         self._retry_base_delay = 2.0
+        # Qwen3: disable thinking mode to prevent <think> blocks breaking structured XML output
+        self._extra_body = {"chat_template_kwargs": {"enable_thinking": False}} \
+            if cfg.disable_thinking else {}
 
     def _call(
         self,
@@ -90,6 +93,7 @@ class LLM:
                     messages=messages,
                     temperature=temp,
                     max_tokens=mtok,
+                    extra_body=self._extra_body or None,
                 )
                 text = response.choices[0].message.content or ""
                 prompt_tok = response.usage.prompt_tokens if response.usage else 0
